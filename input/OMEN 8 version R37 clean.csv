@@ -1,0 +1,65 @@
+1,Berechnung der kritischen Feldstärke beim OMEN 8,,,,,,,,,
+,,,,,,,,,,
+10,Zusatzblatt 2 (Daten der Antenne),,,,,,,,,
+11,Adresse,Wehntalerstrasse 464 / 8046 Zurich,,,,,,,,
+20,Höhenkote 0 (d.h. wie hoch ist das Fundament über Meer) [m],462.2,,,,,,,,
+25,Zone Antenne,0,,,,,,,,
+,,,,,,,,,,
+30,Antennendaten,Strahl A,Strahl B,Strahl C,Strahl A,Strahl B,Strahl C,Strahl A,Strahl B,Strahl C
+40,Laufnummer n,1,2,3,4,5,6,7,8,9
+42,Antennenmast,1,2,3,1,2,3,1,2,3
+50,Nr. der Antenne,1SC,2SC,3SC,1SC,2SC,3SC,1SC,2SC,3SC
+60,Frequenzband [MHz],700-900,700-900,700-900,1800-2600,1400-2600,1400-2600,3600,3600,3600
+70,Netzbetreiber,Swisscom,Swisscom,Swisscom,Swisscom,Swisscom,Swisscom,Swisscom,Swisscom,Swisscom
+80,Antennen-Typ,HybridAIR3268,HybridAIR3268,HybridAIR3268,HybridAIR3268,HybridAIR3268,HybridAIR3268,HybridAIR3268,HybridAIR3268,HybridAIR3268
+90,Adaptiver Betrieb mit KAA < 1,nein,nein,nein,nein,nein,nein,ja,ja,ja
+100,Anzahl Sub-Arrays,0,1,1,1,1,1,16,16,16
+101,Korrekturfaktor,1,1,1,1,1,1,5,5,5
+111,Distanz x zum Koordinaten- Nullpunkt (in m) gem. StDB,0.32,0.47,-0.54,0.32,0.47,-0.54,0.32,0.47,-0.54
+112,Distanz y zum Koordinaten- Nullpunkt (in m) gem. StDB,0.52,-0.40,-0.29,0.52,-0.40,-0.29,0.52,-0.40,-0.29
+113,Höhe z der Antenne über Höhenkote 0 (in m)  gem. StDB,24.80,24.80,24.80,24.80,24.80,24.80,24.80,24.80,24.80
+120,ERPn: Sendeleistung [W],300,450,700,875,1'125,1'445,350,500,600
+130,Hauptstrahlrichtung,0,0,0,0,0,0,0,0,0
+140,Azimut (in Grad von Nord),30,130,240,30,130,240,30,130,240
+150,"Mechanischer  Neigungswinkel  [down tilt, negativ ° Horizont] von",0,0,4,0,0,4,0,0,4
+151,"Mechanischer  Neigungswinkel  [down tilt, negativ ° Horizont] bis",0,0,4,0,0,4,0,0,4
+160,Elektrischer Neigungswinkel (down tilt in Grad negativ) von ,-12,-12,-12,-6,-10,-10,0,0,0
+170,Elektrischer Neigungswinkel (down tilt in Grad negativ) bis,-2,-2,-2,-2,-2,-2,0,0,0
+175,Gesamter Neigungswinkel (in Grad von der Horizontalen) von,-12,-12,-8,-6,-10,-6,0,0,4
+180,Gesamter Neigungswinkel (in Grad von der Horizontalen) bis,-2,-2,2,-2,-2,2,0,0,4
+190,Zusatzblatt 4a (Daten eines Omen),,,,,,,,,
+200,Nr. des OMEN im Situationsplan,8,,,,,,,,
+210,Adresse und Beschreibung ,"Wehntalerstr. 453a, 4.OG",,,,,,,,
+215,Nutzung,Wohnen,,Zone Omen:,,,,,,
+216,"OMEN Höhe und Distanz x, y, z zum Koordinaten- Nullpunkt (in m) gem. StDB",-49.79,-46.47,13.68,,,,,,
+220,Höhe über Boden [m],12.96,,,,,,,,
+225,Höhe über Höhenkote 0 [m],13.68,m,,,,,,,
+230,Horizontaler Abstand [m] (zwischen Antenne und OMEN) / (a),68.70,68.20,67.50,68.70,68.20,67.50,68.70,68.20,67.50
+240,Höhenunterschied [m] (zwischen Antenne und OMEN),11.12,11.12,11.12,11.12,11.12,11.12,11.12,11.12,11.12
+250,dn: direkter Abstand (zwischen Antenne und OMEN),69.59,69.10,68.41,69.59,69.10,68.41,69.59,69.10,68.41
+260,Azimut des OMEN [in ° von N] (gegenüber der Antenne),227.00,227.00,227.00,227.00,227.00,227.00,227.00,227.00,227.00
+261,Kartesisch berechnet: Horizontaler Abstand [m] (zwischen Antenne und OMEN),68.70,68.18,67.51,68.70,68.18,67.51,68.70,68.18,67.51
+262,DELTA horizontaler Abstand,0.00,-0.02,0.01,0.00,-0.02,0.01,0.00,-0.02,0.01
+263,Kartesisch berechnet: Höhenunterschied [m] (zwischen Antenne und OMEN),11.12,11.12,11.12,11.12,11.12,11.12,11.12,11.12,11.12
+264,Kartesisch berechnet: dn: direkter Abstand (zwischen Antenne und OMEN),69.59,69.08,68.42,69.59,69.08,68.42,69.59,69.08,68.42
+265,DELTA direkter Abstand,0.00,0.02,0.01,0.00,0.02,0.01,0.00,0.02,0.01
+270,Elevation des OMEN [in ° von H] (gegenüber der Antenne),-9.00,-9.00,-9.00,-9.00,-9.00,-9.00,-9.00,-9.00,-9.00
+271,Leistung nach Entfernungsdämpfung,1.74,2.15,2.71,2.98,3.40,3.89,1.88,2.27,2.51
+279,Kritische horizontale Senderichtung der Antenne [in ° von N] per StDb,30.00,130.00,240.00,30.00,130.00,240.00,30.00,130.00,240.00
+280,Kritische horizontale Senderichtung der Antenne [in ° von N],30.00,130.00,240.00,30.00,130.00,240.00,30.00,130.00,240.00
+289,Kritische vertikale Senderichtung [in ° von H] per StDb,-9,-9,-8,-6,-9,-6,0,0,4
+290,Kritische vertikale Senderichtung [in ° von H],-9,-9,-8,-6,-9,-6,0,0,4
+300,Winkel des OMEN horizontal [in°] (zur kritischen Senderichtung) / (d),197.00,97.00,-13.00,197.00,97.00,-13.00,197.00,97.00,-13.00
+310,Winkel des OMEN vertikal [in°] (zur kritischen Senderichtung),0.00,0.00,-1.00,-3.00,0.00,-3.00,-9.00,-9.00,-13.00
+319,Richtungsabschwächung horizontal [dB]  per StDb,22.10,15.70,0.10,28.70,15.80,0.00,29.70,15.20,0.10
+320,Richtungsabschwächung horizontal [dB],22.10,15.70,0.10,28.70,15.80,0.00,29.70,15.20,0.10
+329,Richtungsabschwächung vertikal [dB]  per StDb,0.00,0.00,0.00,1.60,0.00,0.70,0.40,0.40,1.90
+330,Richtungsabschwächung vertikal [dB],0.00,0.00,0.00,1.60,0.00,0.70,0.40,0.40,1.90
+340,Richtungsabschwächung total [dB],22.10,15.70,0.10,30.00,15.80,0.70,30.00,15.60,2.00
+350,Richtungsabschwächung total [als Faktor],162.18,37.15,1.02,1000.00,38.02,1.17,1000.00,36.31,1.58
+360,Bauweise der Gebäudehülle,Glas,Glas,Glas,Glas,Glas,Glas,Glas,Glas,Glas
+370,Gebäudedämpfung [in dB],0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00
+380,Gebäudedämpfung (als Faktor),1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00
+390,Feldstärkebeitrag [in V/m],0.14,0.35,2.68,0.09,0.55,3.59,0.06,0.38,1.99
+400,Feldstärkebeitrag im Quadrat,0.02,0.12,7.16,0.01,0.30,12.88,0.00,0.14,3.96
+410,Elektrische Feldstärke der Anlage beim,OMEN 8,4.96,V/m =,65,mW/m2 =,99%,,,

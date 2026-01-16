@@ -1,0 +1,70 @@
+# Python Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Python Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / Packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Testing
+.pytest_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.nox/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Project-specific
+/output/
+/output_*/
+*.log
+
+# Data files (too large for git)
+*.gdb/
+*.gdb.zip
+swisstopo/*.gml
+swisstopo/*.zip
+gebaeude_citygml/
+
+# Temporary files
+*.tmp
+*.bak
+.~lock.*

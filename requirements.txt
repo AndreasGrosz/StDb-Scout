@@ -1,0 +1,29 @@
+# EMF-Hotspot-Finder Dependencies
+# Python >= 3.10
+
+# Core dependencies (required)
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Excel support
+openpyxl>=3.1.0      # .xlsx files
+xlrd>=2.0.0          # .xls files (old format)
+
+# Visualization (required for outputs)
+matplotlib>=3.7.0
+
+# 3D Visualization (optional but recommended)
+pyvista>=0.43.0
+
+# XML parsing (for CityGML)
+lxml>=4.9.0
+
+# GIS support (optional - for FileGDB if needed)
+# fiona>=1.9.0        # Uncomment if using .gdb files
+# pyogrio>=0.7.0      # Faster alternative to fiona
+
+# Development/Testing (optional)
+# pytest>=7.4.0
+# black>=23.0.0
+# mypy>=1.5.0
