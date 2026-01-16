@@ -56,15 +56,37 @@ dmypy.json
 /output/
 /output_*/
 *.log
+temp/
+msi-files/
+input2/
 
 # Data files (too large for git)
 *.gdb/
 *.gdb.zip
-swisstopo/*.gml
-swisstopo/*.zip
+swisstopo/
 gebaeude_citygml/
 
 # Temporary files
 *.tmp
 *.bak
 .~lock.*
+test_output.csv
+test_patterns_comparison.png
+results_air3268.json
+
+# Local configuration
+.claude/
+config.json
+
+# Large media files
+*.mkv
+*.mp4
+
+# Excluded folders
+andere SW mit 5G-Bezug/
+examples/
+Michaels Plot-Script/
+*.fish
+cleanup_outputs.sh
+OMEN R37 leer.xls
+antenna_pattern_sources.csv
