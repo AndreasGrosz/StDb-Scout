@@ -62,17 +62,24 @@ def load_buildings_from_gdb(
         if datasource is None:
             raise ValueError(f"Konnte GDB nicht öffnen: {gdb_path}")
 
-        # Finde Wall Layer (GDB hat separate Wand/Dach/Boden Layer)
+        # Finde Wall, Roof und Floor Layer (GDB hat separate Layer)
         wall_layer = None
+        roof_layer = None
+        floor_layer = None
+
         for i in range(datasource.GetLayerCount()):
             layer = datasource.GetLayerByIndex(i)
             layer_name = layer.GetName()
+
             if layer_name == 'Wall':
                 wall_layer = layer
-                break
+            elif layer_name == 'Roof':
+                roof_layer = layer
+            elif layer_name == 'Floor':
+                floor_layer = layer
 
+        # Fallback: Suche nach Building (falls keine separaten Layer)
         if wall_layer is None:
-            # Fallback: Suche nach Building
             for i in range(datasource.GetLayerCount()):
                 layer = datasource.GetLayerByIndex(i)
                 layer_name = layer.GetName()
@@ -83,8 +90,12 @@ def load_buildings_from_gdb(
         if wall_layer is None:
             raise ValueError("Kein Wall oder Building Layer gefunden")
 
-        building_layer = wall_layer
-        print(f"  Layer: {building_layer.GetName()} ({building_layer.GetFeatureCount()} Features)")
+        print(f"  Gefundene Layer:")
+        print(f"    Wall: {wall_layer.GetFeatureCount()} Features")
+        if roof_layer:
+            print(f"    Roof: {roof_layer.GetFeatureCount()} Features")
+        if floor_layer:
+            print(f"    Floor: {floor_layer.GetFeatureCount()} Features")
 
         # Spatial Filter setzen (falls center gegeben)
         if center:
@@ -92,18 +103,26 @@ def load_buildings_from_gdb(
             x_max = center[0] + radius
             y_min = center[1] - radius
             y_max = center[1] + radius
-            building_layer.SetSpatialFilterRect(x_min, y_min, x_max, y_max)
-            print(f"  Filter: {building_layer.GetFeatureCount()} Gebäude im Radius {radius}m")
+
+            wall_layer.SetSpatialFilterRect(x_min, y_min, x_max, y_max)
+            if roof_layer:
+                roof_layer.SetSpatialFilterRect(x_min, y_min, x_max, y_max)
+            if floor_layer:
+                floor_layer.SetSpatialFilterRect(x_min, y_min, x_max, y_max)
+
+            print(f"  Filter: {wall_layer.GetFeatureCount()} Wände im Radius {radius}m")
 
         # Iteriere über Features und gruppiere nach EGID
         from collections import defaultdict
         walls_by_egid = defaultdict(list)
+        roofs_by_egid = defaultdict(list)
         parsed_walls = 0
         failed_walls = 0
         walls_without_egid = 0
         total_walls_checked = 0
 
-        for idx, feature in enumerate(building_layer):
+        # Lade Wände
+        for idx, feature in enumerate(wall_layer):
             total_walls_checked += 1
             try:
                 # EGID extrahieren
@@ -142,18 +161,65 @@ def load_buildings_from_gdb(
                     print(f"  WARNUNG: Wall-Parsing-Fehler: {e}")
                 continue
 
-        # Erstelle Building-Objekte aus gruppierten Wänden
-        for egid, wall_surfaces in walls_by_egid.items():
-            if wall_surfaces:
+        print(f"  DEBUG: {total_walls_checked} Wände geprüft, {walls_without_egid} ohne EGID, {parsed_walls} erfolgreich")
+
+        # Lade Dächer (falls Roof-Layer vorhanden)
+        if roof_layer:
+            parsed_roofs = 0
+            failed_roofs = 0
+            roofs_without_egid = 0
+            total_roofs_checked = 0
+
+            for idx, feature in enumerate(roof_layer):
+                total_roofs_checked += 1
+                try:
+                    # EGID extrahieren
+                    egid = None
+                    try:
+                        egid_val = feature.GetField("EGID")
+                        if egid_val:
+                            egid = str(egid_val)
+                    except:
+                        pass
+
+                    if not egid:
+                        roofs_without_egid += 1
+                        continue
+
+                    # Geometrie extrahieren
+                    geom = feature.GetGeometryRef()
+                    if geom is None:
+                        continue
+
+                    # Extrahiere Flächen
+                    surfaces = _extract_all_surfaces(geom)
+                    if surfaces:
+                        roofs_by_egid[egid].extend(surfaces)
+                        parsed_roofs += 1
+                    else:
+                        failed_roofs += 1
+
+                except Exception as e:
+                    failed_roofs += 1
+                    continue
+
+            print(f"  DEBUG: {total_roofs_checked} Dächer geprüft, {roofs_without_egid} ohne EGID, {parsed_roofs} erfolgreich")
+
+        # Erstelle Building-Objekte aus gruppierten Wänden und Dächern
+        all_egids = set(walls_by_egid.keys()) | set(roofs_by_egid.keys())
+
+        for egid in all_egids:
+            wall_surfaces = walls_by_egid.get(egid, [])
+            roof_surfaces = roofs_by_egid.get(egid, [])
+
+            if wall_surfaces or roof_surfaces:
                 building = Building(
                     id=f"GDB_EGID_{egid}",
                     egid=egid,
                     wall_surfaces=wall_surfaces,
-                    roof_surfaces=[],
+                    roof_surfaces=roof_surfaces,
                 )
                 buildings.append(building)
-
-        print(f"  DEBUG: {total_walls_checked} Wände geprüft, {walls_without_egid} ohne EGID, {parsed_walls} erfolgreich")
 
         datasource = None  # Close datasource
 
@@ -226,7 +292,7 @@ def _extract_all_surfaces(geom) -> List[WallSurface]:
     return surfaces
 
 
-def _cluster_triangles_by_normal(triangles, normals, angle_threshold_deg=30.0):
+def _cluster_triangles_by_normal(triangles, normals, angle_threshold_deg=45.0):
     """
     Clustert Triangles nach Normalenvektor.
 
@@ -413,10 +479,18 @@ def _extract_surfaces_from_polygon(polygon) -> List[WallSurface]:
 
             # KEIN Filter mehr - akzeptiere ALLE Flächen
             # (Wand/Dach-Trennung später, falls nötig)
+
+            # Generiere Faces für Polygon (Triangle Fan)
+            n_points = len(vertices)
+            faces = []
+            for i in range(1, n_points - 1):
+                faces.extend([3, 0, i, i + 1])
+
             surface = WallSurface(
                 id=f"surface_{id(vertices)}",
                 vertices=vertices,
                 normal=normal,
+                faces=np.array(faces) if faces else None,
             )
             surfaces.append(surface)
 
