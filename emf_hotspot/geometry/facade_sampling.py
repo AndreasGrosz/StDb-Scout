@@ -267,3 +267,119 @@ def filter_points_by_distance(
         if dist <= max_distance:
             filtered.append(p)
     return filtered
+
+
+def create_virtual_omen_points(
+    omen_locations: list,
+    buildings: list,
+    resolution_m: float = 1.0,
+) -> List[FacadePoint]:
+    """
+    Erstellt virtuelle Messpunkte für Bauplatz-OMENs (OMENs ohne Gebäudezuordnung).
+
+    Für jedes OMEN das keinem existierenden Gebäude zugeordnet werden kann,
+    werden virtuelle Fassadenpunkte erstellt. Dies ist wichtig für:
+    - Bauplätze (Gebäude noch nicht gebaut)
+    - Fehlende Gebäudedaten in swissBUILDINGS3D
+    - Geplante Gebäude
+
+    Args:
+        omen_locations: Liste von OMENLocation-Objekten
+        buildings: Liste von Building-Objekten für Zuordnungsprüfung
+        resolution_m: Abstand zwischen Messpunkten (für mehrere Höhen)
+
+    Returns:
+        Liste von FacadePoint für nicht zugeordnete OMENs
+    """
+    if not omen_locations:
+        return []
+
+    # Building-Map für schnellen Zugriff
+    building_map = {}
+    for building in buildings:
+        building_map[building.id] = building
+
+    # Point-in-Polygon Helper
+    def point_in_polygon_2d(x, y, polygon_points):
+        """Ray-casting algorithm für Point-in-Polygon Test"""
+        n = len(polygon_points)
+        inside = False
+        p1x, p1y = polygon_points[0]
+        for i in range(1, n + 1):
+            p2x, p2y = polygon_points[i % n]
+            if y > min(p1y, p2y):
+                if y <= max(p1y, p2y):
+                    if x <= max(p1x, p2x):
+                        if p1y != p2y:
+                            xinters = (y - p1y) * (p2x - p1x) / (p2y - p1y) + p1x
+                        if p1x == p2x or x <= xinters:
+                            inside = not inside
+            p1x, p1y = p2x, p2y
+        return inside
+
+    # Prüfe jedes OMEN ob es einem Gebäude zugeordnet werden kann
+    unassigned_omens = []
+
+    for omen in omen_locations:
+        assigned = False
+
+        for building in buildings:
+            # 1. Höhencheck
+            if building.wall_surfaces or building.roof_surfaces:
+                all_surfaces = building.wall_surfaces + building.roof_surfaces
+                all_z = [v[2] for surface in all_surfaces for v in surface.vertices]
+                building_min_z = min(all_z)
+                building_max_z = max(all_z)
+            else:
+                continue
+
+            height_tolerance = 0.5
+            if not ((building_min_z - height_tolerance) <= omen.position.h <= (building_max_z + height_tolerance)):
+                continue
+
+            # 2. Point-in-Polygon Check
+            all_surfaces = building.wall_surfaces + building.roof_surfaces
+            if not all_surfaces:
+                continue
+
+            all_points_2d = set()
+            for surface in all_surfaces:
+                for vertex in surface.vertices:
+                    all_points_2d.add((round(vertex[0], 2), round(vertex[1], 2)))
+
+            if len(all_points_2d) < 3:
+                continue
+
+            polygon_points_2d = list(all_points_2d)
+            if point_in_polygon_2d(omen.position.e, omen.position.n, polygon_points_2d):
+                assigned = True
+                break
+
+        if not assigned:
+            unassigned_omens.append(omen)
+
+    # Erstelle virtuelle Messpunkte für nicht zugeordnete OMENs
+    virtual_points = []
+
+    for omen in unassigned_omens:
+        # Erstelle Messpunkte in verschiedenen Richtungen (N, E, S, W)
+        # für konservative Worst-Case-Abschätzung
+        normals = [
+            np.array([0.0, 1.0, 0.0]),  # Nord
+            np.array([1.0, 0.0, 0.0]),  # Ost
+            np.array([0.0, -1.0, 0.0]),  # Süd
+            np.array([-1.0, 0.0, 0.0]),  # West
+        ]
+
+        # Erstelle Punkte an der OMEN-Höhe (direkt aus StDB)
+        # Diese Höhe ist bereits die geplante Messpunkthöhe
+        for normal in normals:
+            virtual_points.append(FacadePoint(
+                building_id=f"BAUPLATZ_OMEN_O{omen.nr}",
+                x=omen.position.e,
+                y=omen.position.n,
+                z=omen.position.h,  # Direkt aus StDB
+                normal=normal,
+            ))
+
+    return virtual_points

@@ -19,7 +19,12 @@ from .loaders.building_loader import (
     download_buildings_for_location,
     load_buildings_from_citygml,
 )
-from .geometry.facade_sampling import sample_all_facades, sample_all_roofs, filter_points_by_distance
+from .geometry.facade_sampling import (
+    sample_all_facades,
+    sample_all_roofs,
+    filter_points_by_distance,
+    create_virtual_omen_points,
+)
 from .physics.summation import calculate_all_points, calculate_hotspots
 from .output.csv_export import (
     export_hotspots_csv,
@@ -298,6 +303,17 @@ Optionen:
             virtual_points_count += len(facade_points)
 
         print(f"  → {virtual_points_count} virtuelle Messpunkte hinzugefügt")
+
+    # Bauplatz-OMENs: Erstelle virtuelle Messpunkte für OMENs ohne Gebäudezuordnung
+    if antenna_system.omen_locations:
+        omen_points = create_virtual_omen_points(
+            omen_locations=antenna_system.omen_locations,
+            buildings=buildings,
+            resolution_m=resolution_m,
+        )
+        if omen_points:
+            all_points.extend(omen_points)
+            print(f"  → {len(omen_points)} Bauplatz-OMEN-Punkte hinzugefügt (Gebäude noch nicht gebaut)")
 
     # Nach Radius filtern
     all_points = filter_points_by_distance(
