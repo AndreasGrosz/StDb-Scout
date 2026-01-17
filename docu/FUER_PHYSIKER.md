@@ -60,7 +60,7 @@ StDb-Scout ist ein **Werkzeug zur Automatisierung repetitiver Berechnungsaufgabe
 ```bash
 python -m emf_hotspot input/StandortXY.xls
 ```
-**Zeitersparnis: ~1-2 Stunden pro Standort**
+**Automatisierung: Komplette Datenerfassung ohne manuelle Eingabe**
 
 #### 2. 3D-Gebäudegeometrie
 **Vorher:**
@@ -96,7 +96,7 @@ python -m emf_hotspot input/StandortXY.xls
 - Konservative Annahmen nötig
 
 **Mit StDb-Scout:**
-- 28.853 Punkte in 3 Minuten (parallele Berechnung)
+- Tausende Punkte automatisch berechnet (parallele Berechnung)
 - Alle Fassaden, alle Geschosse systematisch erfasst
 - Garantiert: Kein Hotspot wird übersehen
 
@@ -114,33 +114,39 @@ python -m emf_hotspot input/StandortXY.xls
 - KML für geo.admin.ch 3D-Viewer
 - Fertige CSV-Tabellen
 
-**Zeitersparnis: ~30-60 Minuten pro Gutachten**
-
 ---
 
 ## Konkrete Vorteile für deine tägliche Arbeit
 
-### 1. Mehr Zeit für Physik, weniger für Datenerfassung
+### 1. Fokus auf deine Kernkompetenz
 
-| Aufgabe | Vorher | Mit StDb-Scout | Gewinn |
-|---------|--------|----------------|--------|
-| Datenerfassung aus StDb | 1-2h | 0h (automatisch) | 1-2h |
-| Gebäudehöhen recherchieren | 0.5-1h | 0h (swissBUILDINGS3D) | 0.5-1h |
-| E-Feld-Berechnungen | 1-2h | 3min (parallel) | 1-2h |
-| Visualisierung erstellen | 0.5-1h | 5min (automatisch) | 0.5-1h |
-| **GESAMT pro Standort** | **3-6h** | **~30min Setup + Prüfung** | **2.5-5.5h** |
+**Statt mechanischer Arbeit:**
+- Datenerfassung aus PDFs abtippen
+- Excel-Formeln kopieren und anpassen
+- Koordinaten von Hand umrechnen
+- Gebäudehöhen schätzen
 
-**→ Du gewinnst 2.5-5.5 Stunden pro Standort für fachliche Arbeit.**
+**Kannst du dich konzentrieren auf:**
+- Physikalische Plausibilitätsprüfung
+- Interpretation komplexer Feldverteilungen
+- Bewertung von Grenzfällen und Sondersituationen
+- Kommunikation mit Behörden und Kunden
+- Weiterentwicklung deiner Expertise
 
-**Wirtschaftlicher Vorteil bei Festpreis-Abrechnung:**
-Bei einem Festpreis pro Standort bedeutet jede gesparte Stunde **mehr Verdienst pro Stunde**. Beispiel:
-- Festpreis: CHF 1200 pro Standort
-- Vorher: 6h Arbeit = CHF 200/h
-- **Mit StDb-Scout: 2.5h Arbeit = CHF 480/h**
+**→ Du arbeitest als Physiker, nicht als Datenerfasser.**
 
-**→ Gleicher Verdienst, aber 2.4× höherer Stundensatz = mehr Zeit für weitere Projekte oder Freizeit.**
+### 2. Mehr Wertschöpfung pro Projekt
 
-### 2. Höhere Genauigkeit durch systematische Abdeckung
+**Das Tool ermöglicht dir:**
+- **Höhere Qualität:** Lückenlose Abdeckung aller Fassaden statt Stichprobe
+- **Mehr Sicherheit:** Dokumentierte, reproduzierbare Berechnungen
+- **Bessere Visualisierungen:** Professionelle 3D-Darstellungen für Kunden
+- **Tiefere Analysen:** Zeit für Sensitivitätsanalysen und Varianten
+- **Anspruchsvollere Projekte:** Kapazität für komplexere Standorte
+
+**→ Du lieferst bessere Gutachten, die mehr Wert haben.**
+
+### 3. Höhere Genauigkeit durch systematische Abdeckung
 
 **Problem bei OMEN:**
 - 10-20 Messpunkte manuell gewählt
@@ -188,8 +194,6 @@ Bei einem Festpreis pro Standort bedeutet jede gesparte Stunde **mehr Verdienst 
 - Plausibilität der Eingangsdaten bewerten
 - Besonderheiten identifizieren (Dachaufbauten, Sonderfälle)
 
-**Zeit: 15-30 Minuten**
-
 ### 2. Automatische Berechnung
 **Das Tool übernimmt:**
 ```bash
@@ -200,16 +204,12 @@ python -m emf_hotspot input/Standort_XY.xls
 - Berechnet E-Felder parallel
 - Erstellt Visualisierungen
 
-**Zeit: 3-5 Minuten (läuft automatisch)**
-
 ### 3. Du validierst die Ergebnisse
 **Deine fachliche Prüfung:**
 - Stimmen die Hotspots mit den OMEN-Berechnungen überein?
 - Sind die Gebäudehöhen plausibel?
 - Gibt es unerwartete Abweichungen?
 - Müssen Annahmen angepasst werden?
-
-**Zeit: 30-60 Minuten (Kernkompetenz!)**
 
 ### 4. Du erstellst das Gutachten
 **Deine Interpretation:**
@@ -218,9 +218,7 @@ python -m emf_hotspot input/Standort_XY.xls
 - Kommunikation mit Behörden
 - Unterschrift als verantwortlicher Physiker
 
-**Zeit: 1-2 Stunden (professionelle Arbeit)**
-
-**→ Gesamtzeit: 2-3h statt 4-8h, mehr Fokus auf Physik**
+**→ Mehr Zeit für physikalische Interpretation statt mechanische Arbeit**
 
 ---
 
@@ -331,7 +329,7 @@ Falls du den Code anpassen willst: Python ist einfacher als C++ und du bist bere
 
 ## Praktischer Einstieg
 
-### Schritt 1: Erstes Testprojekt (1 Stunde)
+### Schritt 1: Erstes Testprojekt
 ```bash
 # Environment aktivieren
 source venv/bin/activate
@@ -345,14 +343,14 @@ paraview output/*/paraview_preset.pvsm
 
 **Aufgabe:** Vergleich die Ergebnisse mit deiner OMEN-Berechnung.
 
-### Schritt 2: Validierung (2 Stunden)
+### Schritt 2: Validierung
 - Prüf die berechneten E-Felder gegen OMEN
 - Kontrollier die Gebäudehöhen in ParaView
 - Bewerte die Hotspot-Positionen
 
 **Frage:** Sind die Abweichungen physikalisch erklärbar?
 
-### Schritt 3: Eigener Standort (½ Tag)
+### Schritt 3: Eigener Standort
 - Wähl einen aktuellen Standort
 - Lass das Tool laufen
 - Erstell parallel deine manuelle Berechnung
