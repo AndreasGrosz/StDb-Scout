@@ -8,13 +8,13 @@
 
 StDb-Scout ist ein **Werkzeug zur Automatisierung repetitiver Berechnungsaufgaben** bei der Erstellung von Standortdatenblättern (StDb) für Mobilfunkanlagen.
 
-**Wichtig:** StDb-Scout ersetzt **nicht** die fachliche Expertise eines Physikers. Es übernimmt mechanische Rechenarbeit, damit Sie sich auf die physikalisch anspruchsvollen und bewertenden Tätigkeiten konzentrieren können.
+**Wichtig:** StDb-Scout ersetzt **nicht** deine fachliche Expertise als Physiker. Es übernimmt mechanische Rechenarbeit, damit du dich auf die physikalisch anspruchsvollen und bewertenden Tätigkeiten konzentrieren kannst.
 
 ---
 
-## Ihre Expertise bleibt unverzichtbar
+## Deine Expertise bleibt unverzichtbar
 
-### Was das Tool NICHT kann (und Sie weiterhin tun):
+### Was das Tool NICHT kann (und du weiterhin tust):
 
 1. **Physikalische Plausibilitätsprüfung**
    - Sind die berechneten Werte realistisch?
@@ -41,7 +41,7 @@ StDb-Scout ist ein **Werkzeug zur Automatisierung repetitiver Berechnungsaufgabe
    - Überprüfung der Gebäudezuordnung
    - Kontrolle der Worst-Case-Annahmen
 
-**→ Ihre physikalische Expertise ist der kritische Faktor für korrekte Gutachten.**
+**→ Deine physikalische Expertise ist der kritische Faktor für korrekte Gutachten.**
 
 ---
 
@@ -118,7 +118,7 @@ python -m emf_hotspot input/StandortXY.xls
 
 ---
 
-## Konkrete Vorteile für Ihre tägliche Arbeit
+## Konkrete Vorteile für deine tägliche Arbeit
 
 ### 1. Mehr Zeit für Physik, weniger für Datenerfassung
 
@@ -130,7 +130,15 @@ python -m emf_hotspot input/StandortXY.xls
 | Visualisierung erstellen | 0.5-1h | 5min (automatisch) | 0.5-1h |
 | **GESAMT pro Standort** | **3-6h** | **~30min Setup + Prüfung** | **2.5-5.5h** |
 
-**→ Sie gewinnen 2.5-5.5 Stunden pro Standort für fachliche Arbeit.**
+**→ Du gewinnst 2.5-5.5 Stunden pro Standort für fachliche Arbeit.**
+
+**Wirtschaftlicher Vorteil bei Festpreis-Abrechnung:**
+Bei einem Festpreis pro Standort bedeutet jede gesparte Stunde **mehr Verdienst pro Stunde**. Beispiel:
+- Festpreis: CHF 1200 pro Standort
+- Vorher: 6h Arbeit = CHF 200/h
+- **Mit StDb-Scout: 2.5h Arbeit = CHF 480/h**
+
+**→ Gleicher Verdienst, aber 2.4× höherer Stundensatz = mehr Zeit für weitere Projekte oder Freizeit.**
 
 ### 2. Höhere Genauigkeit durch systematische Abdeckung
 
@@ -154,7 +162,7 @@ python -m emf_hotspot input/StandortXY.xls
 - 3D-Geometrie aus offiziellen swissBUILDINGS3D-Daten
 - Quellcode einsehbar (keine "Black Box")
 
-**→ Sie können jede Berechnung physikalisch begründen.**
+**→ Du kannst jede Berechnung physikalisch begründen.**
 
 ### 4. Konsistenz über Projekte hinweg
 
@@ -168,14 +176,14 @@ python -m emf_hotspot input/StandortXY.xls
 - Einheitliche Antennendiagramme
 - Vergleichbare Ergebnisse
 
-**→ Ihre Gutachten sind professionell konsistent.**
+**→ Deine Gutachten sind professionell konsistent.**
 
 ---
 
 ## Typischer Arbeitsablauf (mit StDb-Scout)
 
-### 1. Sie erhalten einen Auftrag
-**Ihre Aufgabe:**
+### 1. Du erhältst einen Auftrag
+**Deine Aufgabe:**
 - StDb-PDF und OMEN-Datei prüfen
 - Plausibilität der Eingangsdaten bewerten
 - Besonderheiten identifizieren (Dachaufbauten, Sonderfälle)
@@ -194,8 +202,8 @@ python -m emf_hotspot input/Standort_XY.xls
 
 **Zeit: 3-5 Minuten (läuft automatisch)**
 
-### 3. Sie validieren die Ergebnisse
-**Ihre fachliche Prüfung:**
+### 3. Du validierst die Ergebnisse
+**Deine fachliche Prüfung:**
 - Stimmen die Hotspots mit den OMEN-Berechnungen überein?
 - Sind die Gebäudehöhen plausibel?
 - Gibt es unerwartete Abweichungen?
@@ -203,8 +211,8 @@ python -m emf_hotspot input/Standort_XY.xls
 
 **Zeit: 30-60 Minuten (Kernkompetenz!)**
 
-### 4. Sie erstellen das Gutachten
-**Ihre Interpretation:**
+### 4. Du erstellst das Gutachten
+**Deine Interpretation:**
 - Bewertung der Ergebnisse
 - Empfehlungen für Messungen
 - Kommunikation mit Behörden
@@ -216,37 +224,37 @@ python -m emf_hotspot input/Standort_XY.xls
 
 ---
 
-## Qualitätssicherung: Ihre Kontrolle bleibt
+## Qualitätssicherung: Deine Kontrolle bleibt
 
-### Das Tool gibt Ihnen Werkzeuge zur Validierung:
+### Das Tool gibt dir Werkzeuge zur Validierung:
 
 1. **OMEN-Vergleich**
    - Automatischer Vergleich der ersten 10 OMEN-Punkte
    - Abweichungen >10% werden markiert
-   - **Sie entscheiden:** Akzeptabel oder nachjustieren?
+   - **Du entscheidest:** Akzeptabel oder nachjustieren?
 
 2. **Gebäude-Validierung**
    - Vergleich NISV-Formel vs. Geodaten
    - Warnung bei >1m Abweichung
-   - **Sie entscheiden:** Konservative oder NISV-Methode?
+   - **Du entscheidest:** Konservative oder NISV-Methode?
 
 3. **Worst-Case-Tilt-Suche**
    - Automatische Suche des kritischsten Tilts pro Antenne
    - Bereich konfigurierbar (z.B. -12° bis -2°)
-   - **Sie entscheiden:** Welcher Tilt-Bereich ist realistisch?
+   - **Du entscheidest:** Welcher Tilt-Bereich ist realistisch?
 
 4. **Visualisierung zur Plausibilitätsprüfung**
-   - ParaView 3D-Viewer: Sehen Sie die Feldverteilung
+   - ParaView 3D-Viewer: Sieh dir die Feldverteilung an
    - Heatmap: Übersicht über Hotspot-Verteilung
-   - **Sie beurteilen:** Ist das Muster physikalisch sinnvoll?
+   - **Du beurteilst:** Ist das Muster physikalisch sinnvoll?
 
-**→ Sie haben die volle Kontrolle und Verantwortung.**
+**→ Du hast die volle Kontrolle und Verantwortung.**
 
 ---
 
 ## Für Programmierer: Der Code ist einsehbar
 
-Falls Sie den Code reviewen oder anpassen möchten:
+Falls du den Code reviewen oder anpassen möchtest:
 
 ```
 stdb-scout/
@@ -267,27 +275,27 @@ stdb-scout/
 - Leistungsaddition: E_total = √(Σ E_i²)
 - LV95 ↔ WGS84 Konversion (swisstopo-Formel)
 
-**→ Transparenz: Sie können jede Berechnung nachvollziehen.**
+**→ Transparenz: Du kannst jede Berechnung nachvollziehen.**
 
 ---
 
 ## Häufige Bedenken (FAQ)
 
 ### "Das Tool ersetzt mich doch?"
-**Nein.** Das Tool ersetzt Excel-Formeln und manuelle Dateneingabe. Es ersetzt nicht Ihre Fähigkeit, Ergebnisse zu interpretieren, Plausibilität zu prüfen und physikalisch zu argumentieren. **Vergleich:** Ein Taschenrechner ersetzt auch keinen Mathematiker.
+**Nein.** Das Tool ersetzt Excel-Formeln und manuelle Dateneingabe. Es ersetzt nicht deine Fähigkeit, Ergebnisse zu interpretieren, Plausibilität zu prüfen und physikalisch zu argumentieren. **Vergleich:** Ein Taschenrechner ersetzt auch keinen Mathematiker.
 
 ### "Ich verliere die Kontrolle über die Berechnungen?"
-**Nein.** Der Code ist Open Source (auf GitHub). Alle Formeln sind dokumentiert. Sie können jeden Schritt nachvollziehen und validieren. **Mehr Kontrolle** als bei proprietären Tools wie OMEN.
+**Nein.** Der Code ist Open Source (auf GitHub). Alle Formeln sind dokumentiert. Du kannst jeden Schritt nachvollziehen und validieren. **Mehr Kontrolle** als bei proprietären Tools wie OMEN.
 
 ### "Ich muss Python lernen?"
 **Nur für Anpassungen.** Für die tägliche Arbeit reicht:
 ```bash
 python -m emf_hotspot input/Datei.xls
 ```
-Falls Sie den Code anpassen wollen: Python ist einfacher als C++ und Sie sind bereits Programmierer.
+Falls du den Code anpassen willst: Python ist einfacher als C++ und du bist bereits Programmierer.
 
 ### "Was, wenn ich Spezialfälle habe?"
-**Sie passen an.** Der Code ist modular. Sie können eigene Annahmen einbauen:
+**Du passt an.** Der Code ist modular. Du kannst eigene Annahmen einbauen:
 - Eigene Gebäudedämpfungswerte
 - Spezielle Antennentypen
 - Andere Berechnungsmethoden
@@ -305,7 +313,7 @@ Falls Sie den Code anpassen wollen: Python ist einfacher als C++ und Sie sind be
 
 ---
 
-## Ihre Rolle wird aufgewertet, nicht abgewertet
+## Deine Rolle wird aufgewertet, nicht abgewertet
 
 ### Statt:
 ❌ 60% Datenerfassung, Excel-Formeln kopieren
@@ -317,7 +325,7 @@ Falls Sie den Code anpassen wollen: Python ist einfacher als C++ und Sie sind be
 ✅ 20% Validierung und Plausibilitätsprüfung
 ✅ **70% Physikalische Interpretation und Gutachten-Erstellung**
 
-**→ Sie arbeiten als Physiker, nicht als Datenerfasser.**
+**→ Du arbeitest als Physiker, nicht als Datenerfasser.**
 
 ---
 
@@ -335,20 +343,20 @@ python -m emf_hotspot input/OMEN_R37_clean.xls
 paraview output/*/paraview_preset.pvsm
 ```
 
-**Aufgabe:** Vergleichen Sie die Ergebnisse mit Ihrer OMEN-Berechnung.
+**Aufgabe:** Vergleich die Ergebnisse mit deiner OMEN-Berechnung.
 
 ### Schritt 2: Validierung (2 Stunden)
-- Prüfen Sie die berechneten E-Felder gegen OMEN
-- Kontrollieren Sie die Gebäudehöhen in ParaView
-- Bewerten Sie die Hotspot-Positionen
+- Prüf die berechneten E-Felder gegen OMEN
+- Kontrollier die Gebäudehöhen in ParaView
+- Bewerte die Hotspot-Positionen
 
 **Frage:** Sind die Abweichungen physikalisch erklärbar?
 
 ### Schritt 3: Eigener Standort (½ Tag)
-- Wählen Sie einen aktuellen Standort
-- Lassen Sie das Tool laufen
-- Erstellen Sie parallel Ihre manuelle Berechnung
-- Vergleichen Sie beide Ergebnisse
+- Wähl einen aktuellen Standort
+- Lass das Tool laufen
+- Erstell parallel deine manuelle Berechnung
+- Vergleich beide Ergebnisse
 
 **Ziel:** Vertrauen in das Tool aufbauen durch eigene Validierung.
 
@@ -356,18 +364,18 @@ paraview output/*/paraview_preset.pvsm
 
 ## Support und Weiterentwicklung
 
-**Sie sind nicht allein:**
+**Du bist nicht allein:**
 - Vollständige Dokumentation in `docu/`
 - QUICKREF.md für häufige Commands
 - GitHub: Issues für Fragen/Bugs
 - Direkte Kommunikation mit Entwickler (Andreas)
 
-**Ihre Ideen sind willkommen:**
-- Welche Features würden Ihre Arbeit verbessern?
+**Deine Ideen sind willkommen:**
+- Welche Features würden deine Arbeit verbessern?
 - Welche Berechnungen sind noch nicht automatisiert?
-- Welche Ausgabeformate brauchen Sie?
+- Welche Ausgabeformate brauchst du?
 
-**→ Sie gestalten das Tool mit.**
+**→ Du gestaltest das Tool mit.**
 
 ---
 
@@ -384,23 +392,23 @@ StDb-Scout ist ein **Werkzeug zur Effizienzsteigerung**, wie:
 ✅ Standardisierte Visualisierungen
 
 **Es ersetzt NICHT:**
-❌ Ihre physikalische Expertise
-❌ Ihre Erfahrung bei Grenzfällen
-❌ Ihre Fähigkeit, Ergebnisse zu interpretieren
-❌ Ihre Verantwortung als gutachtender Physiker
+❌ Deine physikalische Expertise
+❌ Deine Erfahrung bei Grenzfällen
+❌ Deine Fähigkeit, Ergebnisse zu interpretieren
+❌ Deine Verantwortung als gutachtender Physiker
 
-**Ihre Unterschrift bleibt unverzichtbar.**
+**Deine Unterschrift bleibt unverzichtbar.**
 
 ---
 
 ## Nächste Schritte
 
-1. **Lesen Sie:** `docu/BENUTZERHANDBUCH.md`
-2. **Testen Sie:** Ein Beispielprojekt durchrechnen
-3. **Validieren Sie:** Ergebnisse mit OMEN vergleichen
-4. **Feedback geben:** Was fehlt? Was stört?
+1. **Lies:** `docu/BENUTZERHANDBUCH.md`
+2. **Test:** Ein Beispielprojekt durchrechnen
+3. **Validier:** Ergebnisse mit OMEN vergleichen
+4. **Gib Feedback:** Was fehlt? Was stört?
 
-**Bei Fragen:** Sprechen Sie mit Andreas oder öffnen Sie ein GitHub-Issue.
+**Bei Fragen:** Sprich mit Andreas oder öffne ein GitHub-Issue.
 
 ---
 
