@@ -51,14 +51,12 @@ StDb-Scout ist ein **Werkzeug zur Automatisierung repetitiver Berechnungsaufgabe
 
 #### 1. Datenerfassung und -aufbereitung
 **Vorher:**
-- Manuelles Abtippen aus PDFs
 - Koordinaten-Umrechnungen von Hand
 - Excel-Formeln kopieren und anpassen
-- Gebäude-IDs nachschlagen
 
 **Mit StDb-Scout:**
 ```bash
-python -m emf_hotspot input/StandortXY.xls
+python -m emf_hotspot input/Omen_StandortXY.ods
 ```
 **Automatisierung: Komplette Datenerfassung ohne manuelle Eingabe**
 
@@ -71,47 +69,43 @@ python -m emf_hotspot input/StandortXY.xls
 **Mit StDb-Scout:**
 - Automatischer Download von swissBUILDINGS3D
 - Exakte 3D-Geometrie inkl. Dachneigung
-- Präzise Fassadenpunkte im 1m-Raster
+- Präzise Fassadenpunkte im 1m-Raster (oder enger)
 - Konservative Berechnung der obersten Geschosshöhe
 
 **Genauigkeit: ±0.1m statt ±1-2m Schätzung**
 
 #### 3. Antennendiagramm-Interpolation
-**Vorher:**
-- Manuelle Interpolation aus PDF-Diagrammen
-- Excel-Lookup-Tabellen pflegen
-- Fehler bei nicht-ganzzahligen Winkeln
 
 **Mit StDb-Scout:**
 - Automatische Interpolation auf 0.01° genau
 - Validierte Diagramme aus Herstellerdaten
-- Konsistente Dämpfungswerte für alle Antennen
 
 **Fehlerreduktion: Eliminiert Interpolationsfehler**
 
 #### 4. E-Feld-Berechnung für tausende Punkte
 **Vorher (OMEN):**
-- 10-20 Punkte manuell berechnen
+- vermutete Hotspot-Punkte manuell berechnen
 - Risiko: Hotspots werden übersehen
 - Konservative Annahmen nötig
 
 **Mit StDb-Scout:**
-- Tausende Punkte automatisch berechnet (parallele Berechnung)
+- Tausende Punkte automatisch berechnet
 - Alle Fassaden, alle Geschosse systematisch erfasst
 - Garantiert: Kein Hotspot wird übersehen
 
 **Sicherheit: Vollständige Abdeckung statt Stichprobe**
 
+Was noch fehlt: Berücksichtigung von unbebauten Grundstücken: ist aber geplant
+
 #### 5. Dokumentation und Visualisierung
 **Vorher:**
 - Screenshots manuell erstellen
-- Karten in Word/PowerPoint einfügen
+- Karten ins Gutachten einfügen
 - Tabellen formatieren
 
 **Mit StDb-Scout:**
 - 3D-Visualisierung für ParaView
 - Heatmaps auf swisstopo-Basis
-- KML für geo.admin.ch 3D-Viewer
 - Fertige CSV-Tabellen
 
 ---
@@ -121,8 +115,6 @@ python -m emf_hotspot input/StandortXY.xls
 ### 1. Fokus auf deine Kernkompetenz
 
 **Statt mechanischer Arbeit:**
-- Datenerfassung aus PDFs abtippen
-- Excel-Formeln kopieren und anpassen
 - Koordinaten von Hand umrechnen
 - Gebäudehöhen schätzen
 
@@ -130,7 +122,6 @@ python -m emf_hotspot input/StandortXY.xls
 - Physikalische Plausibilitätsprüfung
 - Interpretation komplexer Feldverteilungen
 - Bewertung von Grenzfällen und Sondersituationen
-- Kommunikation mit Behörden und Kunden
 - Weiterentwicklung deiner Expertise
 
 **→ Du arbeitest als Physiker, nicht als Datenerfasser.**
@@ -197,9 +188,9 @@ python -m emf_hotspot input/StandortXY.xls
 ### 2. Automatische Berechnung
 **Das Tool übernimmt:**
 ```bash
-python -m emf_hotspot input/Standort_XY.xls
+python -m emf_hotspot input/Omen_Standort_XY.ods
 ```
-- Lädt Gebäudedaten von swisstopo
+- Lädt automatisch die Gebäudedaten von swisstopo
 - Generiert Fassadenpunkte
 - Berechnet E-Felder parallel
 - Erstellt Visualisierungen
@@ -214,9 +205,7 @@ python -m emf_hotspot input/Standort_XY.xls
 ### 4. Du erstellst das Gutachten
 **Deine Interpretation:**
 - Bewertung der Ergebnisse
-- Empfehlungen für Messungen
 - Kommunikation mit Behörden
-- Unterschrift als verantwortlicher Physiker
 
 **→ Mehr Zeit für physikalische Interpretation statt mechanische Arbeit**
 
@@ -250,24 +239,6 @@ python -m emf_hotspot input/Standort_XY.xls
 
 ---
 
-## Für Programmierer: Der Code ist einsehbar
-
-Falls du den Code reviewen oder anpassen möchtest:
-
-```
-stdb-scout/
-├── emf_hotspot/
-│   ├── physics/              # E-Feld-Berechnungen
-│   │   ├── propagation.py    # Freiraumdämpfung
-│   │   ├── pattern.py        # Antennendiagramm-Interpolation
-│   │   └── summation.py      # Leistungsaddition
-│   ├── geometry/             # Koordinaten, Winkel
-│   └── loaders/              # Datenimport
-└── docu/
-    ├── BENUTZERHANDBUCH.md   # Vollständige Dokumentation
-    └── PFLICHTENHEFT.md      # Physikalische Formeln
-```
-
 **Alle Formeln sind dokumentiert:**
 - Freiraumdämpfung: E = √(30·ERP) / r
 - Leistungsaddition: E_total = √(Σ E_i²)
@@ -283,7 +254,7 @@ stdb-scout/
 **Nein.** Das Tool ersetzt Excel-Formeln und manuelle Dateneingabe. Es ersetzt nicht deine Fähigkeit, Ergebnisse zu interpretieren, Plausibilität zu prüfen und physikalisch zu argumentieren. **Vergleich:** Ein Taschenrechner ersetzt auch keinen Mathematiker.
 
 ### "Ich verliere die Kontrolle über die Berechnungen?"
-**Nein.** Der Code ist Open Source (auf GitHub). Alle Formeln sind dokumentiert. Du kannst jeden Schritt nachvollziehen und validieren. **Mehr Kontrolle** als bei proprietären Tools wie OMEN.
+**Nein.** Alle Formeln sind dokumentiert. Du kannst jeden Schritt nachvollziehen und validieren.
 
 ### "Ich muss Python lernen?"
 **Nur für Anpassungen.** Für die tägliche Arbeit reicht:
@@ -292,13 +263,6 @@ python -m emf_hotspot input/Datei.xls
 ```
 Falls du den Code anpassen willst: Python ist einfacher als C++ und du bist bereits Programmierer.
 
-### "Was, wenn ich Spezialfälle habe?"
-**Du passt an.** Der Code ist modular. Du kannst eigene Annahmen einbauen:
-- Eigene Gebäudedämpfungswerte
-- Spezielle Antennentypen
-- Andere Berechnungsmethoden
-
-**→ Flexibler als starre kommerzielle Software.**
 
 ### "Ist das wissenschaftlich validiert?"
 **Ja.** Die Berechnungsmethodik basiert auf:
@@ -363,9 +327,6 @@ paraview output/*/paraview_preset.pvsm
 ## Support und Weiterentwicklung
 
 **Du bist nicht allein:**
-- Vollständige Dokumentation in `docu/`
-- QUICKREF.md für häufige Commands
-- GitHub: Issues für Fragen/Bugs
 - Direkte Kommunikation mit Entwickler (Andreas)
 
 **Deine Ideen sind willkommen:**
@@ -395,7 +356,7 @@ StDb-Scout ist ein **Werkzeug zur Effizienzsteigerung**, wie:
 ❌ Deine Fähigkeit, Ergebnisse zu interpretieren
 ❌ Deine Verantwortung als gutachtender Physiker
 
-**Deine Unterschrift bleibt unverzichtbar.**
+**Deine Expertise bleibt unverzichtbar.**
 
 ---
 
@@ -406,7 +367,7 @@ StDb-Scout ist ein **Werkzeug zur Effizienzsteigerung**, wie:
 3. **Validier:** Ergebnisse mit OMEN vergleichen
 4. **Gib Feedback:** Was fehlt? Was stört?
 
-**Bei Fragen:** Sprich mit Andreas oder öffne ein GitHub-Issue.
+**Bei Fragen:** Sprich mit Andreas
 
 ---
 

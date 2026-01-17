@@ -1381,6 +1381,7 @@ def export_to_vtk(
     threshold_vm: float = AGW_LIMIT_VM,
     point_size: float = 1.0,  # Größe der Voxel (in Metern)
     use_voxels: bool = True,  # Punkte als Würfel statt Punkte
+    enable_terrain: bool = True,  # SwissALTI3D Terrain-Mesh
 ) -> None:
     """
     Exportiert Ergebnisse als VTK-Datei für Paraview/PyVista Visualisierung.
@@ -1399,6 +1400,7 @@ def export_to_vtk(
         threshold_vm: Schwellwert für Hotspot-Markierung
         point_size: Größe der Voxel in Metern (wenn use_voxels=True)
         use_voxels: Ob Punkte als Würfel (True) oder als Punkte (False) exportiert werden
+        enable_terrain: Ob Terrain-Mesh (SwissALTI3D) geladen werden soll (Standard: True)
     """
     try:
         import pyvista as pv
@@ -1659,9 +1661,6 @@ def export_to_vtk(
             multiblock["Buildings"] = combined_buildings
 
     # Terrain-Mesh hinzufügen (SwissALTI3D)
-    # TEMPORÄR DEAKTIVIERT für schnellere Tests
-    enable_terrain = False  # TODO: Als Parameter hinzufügen
-
     if antenna_system and enable_terrain:
         try:
             from ..loaders.terrain_loader import load_terrain_mesh
