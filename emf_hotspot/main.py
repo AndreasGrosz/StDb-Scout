@@ -463,8 +463,8 @@ Optionen:
             if pattern_key in patterns:
                 pattern = patterns[pattern_key]
                 pattern_data_for_lobes[antenna.id] = {
-                    "h_pattern": pattern.horizontal_attenuation_db,
-                    "v_pattern": pattern.vertical_attenuation_db,
+                    "h_pattern": pattern.h_gains,  # Korrekter Attributname
+                    "v_pattern": pattern.v_gains,  # Korrekter Attributname
                     "max_gain_dbi": getattr(pattern, 'max_gain_dbi', 0.0),
                 }
 
