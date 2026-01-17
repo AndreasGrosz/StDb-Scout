@@ -1382,6 +1382,8 @@ def export_to_vtk(
     point_size: float = 1.0,  # Größe der Voxel (in Metern)
     use_voxels: bool = True,  # Punkte als Würfel statt Punkte
     enable_terrain: bool = True,  # SwissALTI3D Terrain-Mesh
+    enable_antenna_lobes: bool = True,  # 3D-Antennendiagramm-Keulen
+    pattern_data: Optional[dict] = None,  # Pattern-Daten für Keulen
 ) -> None:
     """
     Exportiert Ergebnisse als VTK-Datei für Paraview/PyVista Visualisierung.
@@ -1401,6 +1403,8 @@ def export_to_vtk(
         point_size: Größe der Voxel in Metern (wenn use_voxels=True)
         use_voxels: Ob Punkte als Würfel (True) oder als Punkte (False) exportiert werden
         enable_terrain: Ob Terrain-Mesh (SwissALTI3D) geladen werden soll (Standard: True)
+        enable_antenna_lobes: Ob 3D-Antennendiagramm-Keulen erstellt werden (Standard: True)
+        pattern_data: Dict {antenna_id: {"h_pattern": array, "v_pattern": array}} für Keulen
     """
     try:
         import pyvista as pv
@@ -1660,6 +1664,31 @@ def export_to_vtk(
                 combined_buildings = combined_buildings.merge(mesh)
             multiblock["Buildings"] = combined_buildings
 
+    # 3D-Antennendiagramm-Keulen (optional)
+    if antenna_system and enable_antenna_lobes and pattern_data:
+        try:
+            from .antenna_pattern_3d import create_all_antenna_lobes
+            print(f"  Erstelle 3D-Antennendiagramm-Keulen...")
+
+            lobes_mesh = create_all_antenna_lobes(
+                antenna_system=antenna_system,
+                pattern_data=pattern_data,
+                scale_distance_m=80.0,  # 0dB = 80m Radius
+                min_attenuation_db=-15.0,  # Nur bis -15dB darstellen
+            )
+
+            if lobes_mesh is not None:
+                multiblock["Antenna_Lobes"] = lobes_mesh
+                print(f"  → Antenna Lobes: {lobes_mesh.n_cells} Zellen, {lobes_mesh.n_points} Punkte")
+                print(f"  → In ParaView: 'Antenna_Lobes' Layer ein-/ausblenden")
+            else:
+                print(f"  → Keine Antenna Lobes erstellt (kein PyVista oder keine Patterns)")
+
+        except Exception as e:
+            print(f"  HINWEIS: Antenna Lobes konnten nicht erstellt werden: {e}")
+            import traceback
+            traceback.print_exc()
+
     # Terrain-Mesh hinzufügen (SwissALTI3D)
     if antenna_system and enable_terrain:
         try:
@@ -1677,6 +1706,9 @@ def export_to_vtk(
             else:
                 radius = 200
 
+            print(f"  → Zentrum: E={antenna_system.base_position.e:.1f}, N={antenna_system.base_position.n:.1f}")
+            print(f"  → Radius: {radius:.0f}m")
+
             vertices, faces, heights = load_terrain_mesh(
                 center_e=antenna_system.base_position.e,
                 center_n=antenna_system.base_position.n,
@@ -1684,7 +1716,7 @@ def export_to_vtk(
                 resolution_m=2.0  # 2m SwissALTI3D Resolution
             )
 
-            if vertices is not None and faces is not None:
+            if vertices is not None and faces is not None and len(vertices) > 0:
                 # Erstelle PolyData aus Vertices und Faces
                 terrain = pv.PolyData(vertices, np.column_stack([
                     np.full(len(faces), 3),  # Triangle marker
@@ -1695,11 +1727,19 @@ def export_to_vtk(
                 terrain["Elevation_m"] = heights
 
                 multiblock["Terrain"] = terrain
-                print(f"  → Terrain: {len(vertices)} Vertices, {len(faces)} Dreiecke")
+                print(f"  ✓ Terrain geladen: {len(vertices)} Vertices, {len(faces)} Dreiecke")
+                print(f"  → Höhenbereich: {heights.min():.1f}m - {heights.max():.1f}m ü.M.")
+            else:
+                print(f"  ⚠ Terrain-Loader gab keine Daten zurück (vertices={vertices is not None}, faces={faces is not None})")
+                print(f"  → Möglicherweise keine Kachel verfügbar oder Download fehlgeschlagen")
 
+        except ImportError as e:
+            print(f"  ⚠ Terrain-Loader nicht verfügbar: {e}")
         except Exception as e:
-            print(f"  HINWEIS: Terrain konnte nicht geladen werden: {e}")
-            # Optional: print(f"  → Traceback:"); import traceback; traceback.print_exc()
+            print(f"  ⚠ Terrain konnte nicht geladen werden: {e}")
+            print(f"  → Prüfe Internet-Verbindung und swisstopo API-Verfügbarkeit")
+            import traceback
+            traceback.print_exc()
 
     # Maßstab hinzufügen (50m Referenz) - am äußersten Rand vorne, auf Bodenhöhe
     if antenna_system and buildings:

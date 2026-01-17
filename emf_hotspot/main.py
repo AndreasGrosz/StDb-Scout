@@ -455,6 +455,19 @@ Optionen:
         project_name_clean = re.sub(r'[^\w\-]', '_', antenna_system.name)
         vtk_filename = f"paraview-{project_name_clean}.vtm"
 
+        # Bereite Pattern-Daten für 3D-Keulen auf
+        pattern_data_for_lobes = {}
+        for antenna in antenna_system.antennas:
+            # Suche passendes Pattern
+            pattern_key = (antenna.antenna_type, antenna.frequency_band)
+            if pattern_key in patterns:
+                pattern = patterns[pattern_key]
+                pattern_data_for_lobes[antenna.id] = {
+                    "h_pattern": pattern.horizontal_attenuation_db,
+                    "v_pattern": pattern.vertical_attenuation_db,
+                    "max_gain_dbi": getattr(pattern, 'max_gain_dbi', 0.0),
+                }
+
         export_to_vtk(
             results,
             output_dir / vtk_filename,
@@ -463,6 +476,9 @@ Optionen:
             threshold_vm=threshold_vm,
             point_size=resolution_m,  # Voxel-Größe = Sampling-Auflösung
             use_voxels=True,  # Würfel statt Punkte (besser sichtbar)
+            enable_terrain=True,  # Terrain-Mesh (SwissALTI3D)
+            enable_antenna_lobes=True,  # 3D-Antennendiagramm-Keulen
+            pattern_data=pattern_data_for_lobes,  # Pattern-Daten für Keulen
         )
 
         # ParaView State File generieren (automatische Einstellungen)

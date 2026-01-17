@@ -106,11 +106,26 @@ Wie bei Contour: **Color by** → `E_field_Vm`
 
 ## Was du jetzt siehst
 
-- **Terrain/Relief**: Geländeoberfläche mit Höhenlinien
+- **Terrain/Relief**: Geländeoberfläche mit Höhenlinien (falls geladen)
 - **Gebäude**: 3D-Modelle (transparent)
 - **5V/m Keulen**: Isosurfaces zeigen, wo genau der Grenzwert erreicht wird
 - **Antennen**: Hellblaue Würfel mit Pfeilen (Hauptstrahlrichtungen)
+- **Antenna_Lobes** (NEU): 3D-Antennendiagramm-Keulen - zeigt Hauptstrahlrichtung visuell
 - **Hotspots**: Wo Keulen Gebäude schneiden → Potenzielle OMEN-Punkte!
+
+### Antenna_Lobes Layer (3D-Antennendiagramme)
+
+Dieser Layer zeigt die **Antennencharakteristik** als 3D-Keule:
+- **Hauptkeule** (rot/orange): -3dB Beamwidth
+- **Nebenkeulen** (gelb/blau): Schwächere Bereiche
+- **Skalierung**: 0dB = 80m Radius (normiert)
+
+**Ein-/Ausschalten**:
+1. **Pipeline Browser** → Klick auf "Antenna_Lobes" (Häkchen setzen/entfernen)
+2. **Farbcodierung**: "Attenuation_dB" (zeigt Dämpfung) oder "Gain_dBi" (zeigt Gewinn)
+
+**Vorteil**: Siehst sofort welche Gebäude im Hauptstrahl liegen.
+**Nachteil**: Zeigt nur die Charakteristik, nicht die echte Feldstärke (dafür sind die E-Feld-Ergebnisse präziser!).
 
 ---
 
