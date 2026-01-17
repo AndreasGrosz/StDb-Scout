@@ -1673,8 +1673,8 @@ def export_to_vtk(
             lobes_mesh = create_all_antenna_lobes(
                 antenna_system=antenna_system,
                 pattern_data=pattern_data,
-                scale_distance_m=80.0,  # 0dB = 80m Radius
-                min_attenuation_db=-15.0,  # Nur bis -15dB darstellen
+                scale_distance_m=40.0,  # 0dB = 40m Radius (kompakter)
+                min_attenuation_db=-12.0,  # Nur bis -12dB (Hauptkeule + starke Nebenkeulen)
             )
 
             if lobes_mesh is not None:

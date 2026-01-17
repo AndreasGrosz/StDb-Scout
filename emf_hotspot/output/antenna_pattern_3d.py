@@ -17,8 +17,10 @@ def create_antenna_lobe_3d(
     antenna_position: Tuple[float, float, float],  # (E, N, H) in LV95
     azimuth_deg: float,  # Hauptstrahlrichtung
     tilt_deg: float,  # Tilt (negativ = nach unten)
-    h_pattern: np.ndarray,  # Horizontal-Diagramm (360 Werte, 0-360°)
-    v_pattern: np.ndarray,  # Vertikal-Diagramm (180 Werte, -90 bis +90°)
+    h_angles: np.ndarray,  # Horizontal-Diagramm Winkel (0-360°)
+    h_gains: np.ndarray,  # Horizontal-Diagramm Gains (dB)
+    v_angles: np.ndarray,  # Vertikal-Diagramm Winkel (0-360°)
+    v_gains: np.ndarray,  # Vertikal-Diagramm Gains (dB)
     max_gain_dbi: float = 0.0,  # Max Gain der Antenne
     scale_distance_m: float = 100.0,  # Normierung: 0dB = 100m Radius
     min_attenuation_db: float = -20.0,  # Nur bis -20dB darstellen
@@ -36,8 +38,10 @@ def create_antenna_lobe_3d(
         antenna_position: (E, N, H) Koordinaten im LV95-System
         azimuth_deg: Hauptstrahlrichtung (0° = Nord, 90° = Ost)
         tilt_deg: Tilt (negativ = nach unten, z.B. -4°)
-        h_pattern: Horizontal-Dämpfung in dB, 360 Werte für 0-360° (relativ zu Azimut!)
-        v_pattern: Vertikal-Dämpfung in dB, 180 Werte für -90 bis +90° (relativ zu Tilt!)
+        h_angles: Horizontal-Diagramm Winkel-Array (0-360°)
+        h_gains: Horizontal-Diagramm Gain-Array (dB, relativ zu Azimut)
+        v_angles: Vertikal-Diagramm Winkel-Array (0-360°, StDB-Konvention)
+        v_gains: Vertikal-Diagramm Gain-Array (dB, 0°=horizontal, 90°=unten)
         max_gain_dbi: Maximaler Gewinn der Antenne in dBi (für Absolutwerte)
         scale_distance_m: Radius bei 0dB (0dB = scale_distance_m)
         min_attenuation_db: Minimale Dämpfung die gezeichnet wird (z.B. -20dB)
@@ -55,18 +59,29 @@ def create_antenna_lobe_3d(
     elevation_angles = np.arange(-90, 95, 5)  # 37 Werte (inkl. +90)
 
     # Interpoliere H-Pattern (zyklisch!)
+    # Nutze echte Winkel-Daten aus Pattern
     h_interp = np.interp(
         azimuth_angles,
-        np.linspace(0, 360, len(h_pattern), endpoint=False),
-        h_pattern,
+        h_angles,
+        h_gains,
         period=360  # Zyklisch: 360° = 0°
     )
 
-    # Interpoliere V-Pattern
+    # Interpoliere V-Pattern mit StDB-Konvention
+    # V-Pattern: 0° = horizontal, 90° = nach unten, 270° = nach oben
+    # Elevation-Winkel: -90° bis +90° (mathematisch)
+    # Mapping: -90° → 90° (unten), 0° → 0° (horizontal), +90° → 270° (oben)
+    v_pattern_angles = np.where(
+        elevation_angles >= 0,
+        360 - elevation_angles,  # Positiv: nach oben = 270-360°
+        -elevation_angles         # Negativ: nach unten = 0-90°
+    )
+
     v_interp = np.interp(
-        elevation_angles,
-        np.linspace(-90, 90, len(v_pattern)),
-        v_pattern
+        v_pattern_angles,
+        v_angles,
+        v_gains,
+        period=360  # Zyklisch
     )
 
     # Erstelle 3D-Grid: Für jeden (Azimut, Elevation) Punkt
@@ -112,9 +127,10 @@ def create_antenna_lobe_3d(
     # Rotiere auf echte Azimut/Tilt-Richtung
     # 1. Rotation um Z-Achse (Azimut): 0° = Nord = +Y, 90° = Ost = +X
     # WICHTIG: Lokales System hat +X als Hauptstrahlrichtung
-    # Aber Azimut 0° = Nord = +Y global
-    # Also: Azimut_effektiv = Azimut + 90° (um von +X lokal zu Nord zu kommen)
-    azimuth_rad = np.radians(azimuth_deg + 90)  # +90° Offset!
+    # Azimut α → Richtungsvektor [sin(α), cos(α), 0]
+    # Z-Rotation um θ: [1,0,0] → [cos(θ), sin(θ), 0]
+    # Also: cos(θ) = sin(α), sin(θ) = cos(α) → θ = 90° - α
+    azimuth_rad = np.radians(90.0 - azimuth_deg)
 
     # Rotationsmatrix um Z (Azimut)
     rotation_z = np.array([
@@ -219,8 +235,10 @@ def create_all_antenna_lobes(
             antenna_position=(antenna.position.e, antenna.position.n, antenna.position.h),
             azimuth_deg=antenna.azimuth_deg,
             tilt_deg=tilt,
-            h_pattern=patterns["h_pattern"],
-            v_pattern=patterns["v_pattern"],
+            h_angles=patterns["h_angles"],
+            h_gains=patterns["h_gains"],
+            v_angles=patterns["v_angles"],
+            v_gains=patterns["v_gains"],
             max_gain_dbi=patterns.get("max_gain_dbi", 0.0),
             scale_distance_m=scale_distance_m,
             min_attenuation_db=min_attenuation_db,

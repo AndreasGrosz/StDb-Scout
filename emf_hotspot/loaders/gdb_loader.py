@@ -229,12 +229,12 @@ def _extract_all_surfaces(geom) -> List[WallSurface]:
 
 def _extract_surface_from_tin(tin) -> Optional[WallSurface]:
     """
-    Extrahiert eine Wand-Surface aus einem TIN (Triangulated Irregular Network).
+    Extrahiert ALLE Triangles aus einem TIN als separates Mesh.
 
-    Ein TIN besteht aus mehreren TRIANGLE-Geometrien. Wir extrahieren alle
-    eindeutigen Vertices und kombinieren sie zu einer WallSurface.
+    WICHTIG: TIN-Vertices dürfen NICHT als Set gespeichert werden,
+    da die Reihenfolge für Triangles essentiell ist!
     """
-    all_points = set()  # Set für eindeutige Punkte
+    all_triangles = []  # Liste aller Triangle-Vertices (je 3 Punkte)
 
     # Iteriere über alle Triangles im TIN
     for i in range(tin.GetGeometryCount()):
@@ -242,12 +242,13 @@ def _extract_surface_from_tin(tin) -> Optional[WallSurface]:
         if triangle is None:
             continue
 
+        triangle_points = []
+
         # Methode 1: Versuche Punkte direkt vom Triangle zu holen
         if triangle.GetPointCount() > 0:
             for j in range(triangle.GetPointCount()):
                 x, y, z = triangle.GetPoint(j)
-                # Runde auf mm, um fast-identische Punkte zu vereinen
-                all_points.add((round(x, 3), round(y, 3), round(z, 3)))
+                triangle_points.append(np.array([x, y, z]))
 
         # Methode 2: Versuche über Ring (LINEARRING im Triangle)
         elif triangle.GetGeometryCount() > 0:
@@ -255,21 +256,33 @@ def _extract_surface_from_tin(tin) -> Optional[WallSurface]:
             if ring and ring.GetPointCount() > 0:
                 for j in range(ring.GetPointCount()):
                     x, y, z = ring.GetPoint(j)
-                    all_points.add((round(x, 3), round(y, 3), round(z, 3)))
+                    triangle_points.append(np.array([x, y, z]))
 
-    if len(all_points) < 3:
+        # Validiere Triangle (genau 3 oder 4 Punkte, wobei letzter = erster bei 4)
+        if len(triangle_points) >= 3:
+            # Bei 4 Punkten: Letzter Punkt ist meist Duplikat des ersten (Ring-Closing)
+            if len(triangle_points) == 4 and np.allclose(triangle_points[0], triangle_points[3]):
+                triangle_points = triangle_points[:3]
+            all_triangles.append(triangle_points[:3])  # Nur erste 3 Punkte
+
+    if not all_triangles:
         return None
 
-    # Konvertiere zu numpy array
-    vertices = np.array(list(all_points))
+    # Konvertiere alle Triangles zu einem großen Vertex-Array
+    # WICHTIG: Reihenfolge beibehalten! Nicht als Set!
+    vertices = []
+    for tri in all_triangles:
+        vertices.extend(tri)
 
-    # Berechne durchschnittliche Normale über alle Triangles
-    # (einfache Methode: Nutze erste 3 nicht-kollineare Punkte)
+    vertices = np.array(vertices)
+
+    # Berechne durchschnittliche Normale über erste Triangle
     normal = np.array([0.0, 0.0, 1.0])  # Default
-    if len(vertices) >= 3:
+    if len(all_triangles) > 0 and len(all_triangles[0]) >= 3:
         try:
-            v1 = vertices[1] - vertices[0]
-            v2 = vertices[2] - vertices[0]
+            tri = all_triangles[0]
+            v1 = tri[1] - tri[0]
+            v2 = tri[2] - tri[0]
             normal = np.cross(v1, v2)
             normal_norm = np.linalg.norm(normal)
 
@@ -278,7 +291,7 @@ def _extract_surface_from_tin(tin) -> Optional[WallSurface]:
         except:
             pass  # Nutze Default
 
-    # Erstelle WallSurface
+    # Erstelle WallSurface mit allen Triangle-Vertices
     surface = WallSurface(
         id=f"tin_surface_{id(tin)}",
         vertices=vertices,
