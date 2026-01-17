@@ -1626,10 +1626,14 @@ def export_to_vtk(
                     points_wall = wall.vertices
                     n_points = len(points_wall)
 
-                    # Triangle Fan
-                    faces = []
-                    for i in range(1, n_points - 1):
-                        faces.extend([3, 0, i, i + 1])
+                    # Nutze vordefinierte Faces falls vorhanden (TIN-Daten)
+                    if wall.faces is not None and len(wall.faces) > 0:
+                        faces = wall.faces
+                    else:
+                        # Fallback: Triangle Fan für reguläre Polygone
+                        faces = []
+                        for i in range(1, n_points - 1):
+                            faces.extend([3, 0, i, i + 1])
 
                     if faces:
                         mesh = pv.PolyData(points_wall, faces=faces)
@@ -1647,9 +1651,14 @@ def export_to_vtk(
                     points_roof = roof.vertices
                     n_points = len(points_roof)
 
-                    faces = []
-                    for i in range(1, n_points - 1):
-                        faces.extend([3, 0, i, i + 1])
+                    # Nutze vordefinierte Faces falls vorhanden (TIN-Daten)
+                    if roof.faces is not None and len(roof.faces) > 0:
+                        faces = roof.faces
+                    else:
+                        # Fallback: Triangle Fan für reguläre Polygone
+                        faces = []
+                        for i in range(1, n_points - 1):
+                            faces.extend([3, 0, i, i + 1])
 
                     if faces:
                         mesh = pv.PolyData(points_roof, faces=faces)

@@ -271,10 +271,18 @@ def _extract_surface_from_tin(tin) -> Optional[WallSurface]:
     # Konvertiere alle Triangles zu einem großen Vertex-Array
     # WICHTIG: Reihenfolge beibehalten! Nicht als Set!
     vertices = []
-    for tri in all_triangles:
+    faces = []
+
+    for tri_idx, tri in enumerate(all_triangles):
+        # Füge 3 Vertices hinzu
+        start_idx = len(vertices)
         vertices.extend(tri)
 
+        # Erstelle Face: [3, idx0, idx1, idx2]
+        faces.extend([3, start_idx, start_idx + 1, start_idx + 2])
+
     vertices = np.array(vertices)
+    faces = np.array(faces)
 
     # Berechne durchschnittliche Normale über erste Triangle
     normal = np.array([0.0, 0.0, 1.0])  # Default
@@ -291,11 +299,12 @@ def _extract_surface_from_tin(tin) -> Optional[WallSurface]:
         except:
             pass  # Nutze Default
 
-    # Erstelle WallSurface mit allen Triangle-Vertices
+    # Erstelle WallSurface mit Triangle-Faces
     surface = WallSurface(
         id=f"tin_surface_{id(tin)}",
         vertices=vertices,
         normal=normal,
+        faces=faces,  # NEU: Face-Array für korrektes TIN-Rendering
     )
 
     return surface

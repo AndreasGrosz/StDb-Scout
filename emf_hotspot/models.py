@@ -152,6 +152,7 @@ class WallSurface:
     id: str
     vertices: np.ndarray  # Shape (N, 3) - LV95 E, N, H
     normal: Optional[np.ndarray] = None  # Flächennormale
+    faces: Optional[np.ndarray] = None  # PyVista Face-Array für TIN-Meshes
 
 
 @dataclass
