@@ -842,6 +842,155 @@ def export_hotspots_for_geoadmin(
     print(f"  → {len(hotspots)} Hotspots + {len(antenna_system.antennas)} Antenne(n)")
 
 
+def export_hotspots_kml(
+    results: List[HotspotResult],
+    antenna_system,
+    output_path: Path,
+    threshold_vm: float = AGW_LIMIT_VM,
+    aggregated_hotspots=None,
+) -> None:
+    """
+    Exportiert Hotspots als KML für geo.admin.ch.
+
+    KML (Keyhole Markup Language) ist das von Google Earth und geo.admin.ch
+    unterstützte Format. Verwendet WGS84 Koordinaten (Lat/Lon).
+    """
+    from xml.etree.ElementTree import Element, SubElement, ElementTree, tostring
+    from xml.dom import minidom
+
+    def lv95_to_wgs84(e: float, n: float, h: float = None) -> tuple:
+        """Konvertiert LV95 zu WGS84 (Lat/Lon). Approximationsformel von swisstopo."""
+        y = (e - 2600000) / 1000000
+        x = (n - 1200000) / 1000000
+
+        lon = (2.6779094
+               + 4.728982 * y
+               + 0.791484 * y * x
+               + 0.1306 * y * x * x
+               - 0.0436 * y * y * y)
+
+        lat = (16.9023892
+               + 3.238272 * x
+               - 0.270978 * y * y
+               - 0.002528 * x * x
+               - 0.0447 * y * y * x
+               - 0.0140 * x * x * x)
+
+        lon = lon * 100 / 36
+        lat = lat * 100 / 36
+
+        if h is not None:
+            return lon, lat, h
+        return lon, lat
+
+    # Root KML Element
+    kml = Element('kml', xmlns="http://www.opengis.net/kml/2.2")
+    document = SubElement(kml, 'Document')
+    SubElement(document, 'name').text = f"EMF Hotspots - {antenna_system.name}"
+
+    # Styles für verschiedene E-Feldstärken
+    styles = [
+        ("style_antenna", "#000000", "http://maps.google.com/mapfiles/kml/shapes/electronics.png", 1.3),
+        ("style_hotspot_low", "#FFA500", "http://maps.google.com/mapfiles/kml/shapes/caution.png", 1.0),  # 5-6 V/m
+        ("style_hotspot_med", "#FF4500", "http://maps.google.com/mapfiles/kml/shapes/caution.png", 1.2),  # 6-7.5 V/m
+        ("style_hotspot_high", "#FF0000", "http://maps.google.com/mapfiles/kml/shapes/caution.png", 1.4),  # 7.5-10 V/m
+        ("style_hotspot_extreme", "#8B0000", "http://maps.google.com/mapfiles/kml/shapes/caution.png", 1.6),  # >10 V/m
+    ]
+
+    for style_id, color, icon_url, scale in styles:
+        style = SubElement(document, 'Style', id=style_id)
+        icon_style = SubElement(style, 'IconStyle')
+        SubElement(icon_style, 'color').text = color.replace('#', 'ff') + 'ff'  # KML: AABBGGRR
+        SubElement(icon_style, 'scale').text = str(scale)
+        icon = SubElement(icon_style, 'Icon')
+        SubElement(icon, 'href').text = icon_url
+        label_style = SubElement(style, 'LabelStyle')
+        SubElement(label_style, 'scale').text = '0.8'
+
+    # Antennen
+    for i, ant in enumerate(antenna_system.antennas):
+        placemark = SubElement(document, 'Placemark')
+        SubElement(placemark, 'name').text = f"📡 {ant.frequency_band} MHz"
+        SubElement(placemark, 'styleUrl').text = '#style_antenna'
+
+        # Konvertiere LV95 → WGS84
+        lon, lat, alt = lv95_to_wgs84(ant.position.e, ant.position.n, ant.position.h)
+
+        description = f"""<![CDATA[
+<b>Antenne {ant.frequency_band} MHz</b><br/>
+ERP: {ant.erp_watts} W<br/>
+Azimut: {ant.azimuth_deg}°<br/>
+Tilt: {ant.tilt_deg}°<br/>
+Position: {ant.position.e:.1f} / {ant.position.n:.1f} / {ant.position.h:.1f}m<br/>
+WGS84: {lat:.6f}°N / {lon:.6f}°E
+]]>"""
+        SubElement(placemark, 'description').text = description
+
+        point = SubElement(placemark, 'Point')
+        # KML Format: lon,lat,altitude
+        SubElement(point, 'coordinates').text = f"{lon},{lat},{alt}"
+        SubElement(point, 'altitudeMode').text = 'absolute'
+
+    # Hotspots
+    hotspots = [r for r in results if r.e_field_vm >= threshold_vm]
+
+    for r in hotspots:
+        e = r.e_field_vm
+
+        # Style nach E-Feldstärke
+        if e >= 10.0:
+            style_url = '#style_hotspot_extreme'
+        elif e >= 7.5:
+            style_url = '#style_hotspot_high'
+        elif e >= 6.0:
+            style_url = '#style_hotspot_med'
+        else:
+            style_url = '#style_hotspot_low'
+
+        # Adresse aus aggregated_hotspots holen
+        address = ""
+        if aggregated_hotspots:
+            for hotspot in aggregated_hotspots:
+                if hotspot['egid'] == r.building_id.replace('GDB_EGID_', ''):
+                    address = hotspot.get('address', '')
+                    break
+
+        # Konvertiere LV95 → WGS84
+        lon, lat, alt = lv95_to_wgs84(r.x, r.y, r.z)
+
+        placemark = SubElement(document, 'Placemark')
+        SubElement(placemark, 'name').text = f"⚠️ {round(e, 2)} V/m"
+        SubElement(placemark, 'styleUrl').text = style_url
+
+        description = f"""<![CDATA[
+<b>EMF-Hotspot</b><br/>
+<b>E-Feldstärke: {round(e, 2)} V/m</b><br/>
+Grenzwert: {threshold_vm} V/m<br/>
+Überschreitung: {round(e - threshold_vm, 2)} V/m ({round((e/threshold_vm - 1)*100, 1)}%)<br/>
+<br/>
+Höhe: {round(float(r.z), 1)}m ü.M.<br/>
+Gebäude-ID: {r.building_id.replace('GDB_EGID_', '')}<br/>
+{f'Adresse: {address}<br/>' if address else ''}
+Position LV95: {round(float(r.x), 1)} / {round(float(r.y), 1)}<br/>
+Position WGS84: {lat:.6f}°N / {lon:.6f}°E
+]]>"""
+        SubElement(placemark, 'description').text = description
+
+        point = SubElement(placemark, 'Point')
+        # KML Format: lon,lat,altitude
+        SubElement(point, 'coordinates').text = f"{lon},{lat},{alt}"
+        SubElement(point, 'altitudeMode').text = 'absolute'
+
+    # Pretty-print XML
+    xml_str = minidom.parseString(tostring(kml, encoding='utf-8')).toprettyxml(indent="  ", encoding='utf-8')
+
+    with open(output_path, 'wb') as f:
+        f.write(xml_str)
+
+    print(f"KML für geo.admin.ch exportiert: {output_path}")
+    print(f"  → {len(hotspots)} Hotspots + {len(antenna_system.antennas)} Antenne(n)")
+
+
 def _fetch_wms_basemap(
     bbox: tuple[float, float, float, float],
     width: int,

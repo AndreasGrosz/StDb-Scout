@@ -34,6 +34,7 @@ from .output.visualization import (
     visualize_hotspots,
     export_to_geojson,
     export_hotspots_for_geoadmin,
+    export_hotspots_kml,
     create_heatmap_image,
     create_hotspot_marker_map,
     export_to_vtk,
@@ -436,6 +437,14 @@ Optionen:
         results,
         antenna_system,
         output_dir / "hotspots_geoadmin.geojson",
+        threshold_vm=threshold_vm,
+    )
+
+    # KML für geo.admin.ch (akzeptiertes Format!)
+    export_hotspots_kml(
+        results,
+        antenna_system,
+        output_dir / "hotspots_geoadmin.kml",
         threshold_vm=threshold_vm,
     )
 
