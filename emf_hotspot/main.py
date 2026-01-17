@@ -33,6 +33,7 @@ from .output.csv_export import (
 from .output.visualization import (
     visualize_hotspots,
     export_to_geojson,
+    export_hotspots_for_geoadmin,
     create_heatmap_image,
     create_hotspot_marker_map,
     export_to_vtk,
@@ -427,8 +428,16 @@ Optionen:
         floor_height_m=3.0,
     )
 
-    # GeoJSON
+    # GeoJSON (alle Punkte)
     export_to_geojson(results, output_dir / "ergebnisse.geojson")
+
+    # GeoJSON optimiert für geo.admin.ch (nur Hotspots mit Styling)
+    export_hotspots_for_geoadmin(
+        results,
+        antenna_system,
+        output_dir / "hotspots_geoadmin.geojson",
+        threshold_vm=threshold_vm,
+    )
 
     # VTK-Export für Paraview (immer exportieren)
     try:

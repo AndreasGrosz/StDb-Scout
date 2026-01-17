@@ -732,6 +732,116 @@ def export_to_geojson(
     print(f"GeoJSON exportiert: {output_path}")
 
 
+def export_hotspots_for_geoadmin(
+    results: List[HotspotResult],
+    antenna_system,
+    output_path: Path,
+    threshold_vm: float = AGW_LIMIT_VM,
+    aggregated_hotspots=None,
+) -> None:
+    """
+    Exportiert nur Hotspots (E >= threshold) als optimiertes GeoJSON für geo.admin.ch.
+
+    Features:
+    - Nur Hotspots, nicht alle 28853 Punkte
+    - Farbcodierung nach E-Feldstärke
+    - Größere Marker für bessere Sichtbarkeit
+    - Antennenposition als Feature
+    - Optimierte Popups mit allen Infos
+    """
+    import json
+
+    features = []
+
+    # 1. Antenne(n) als Feature(s)
+    for ant in antenna_system.antennas:
+        antenna_feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [float(ant.position.e), float(ant.position.n), float(ant.position.h)],
+            },
+            "properties": {
+                "type": "antenna",
+                "name": f"Antenne {ant.frequency_band}",
+                "frequency": f"{ant.frequency_band} MHz",
+                "erp": f"{ant.erp_watts} W",
+                "azimut": f"{ant.azimuth_deg}°",
+                "tilt": f"{ant.tilt_deg}°",
+                "marker-color": "#000000",  # Schwarz
+                "marker-size": "large",
+                "marker-symbol": "communications-tower",
+                "title": f"📡 Antenne {ant.frequency_band} MHz",
+                "description": f"ERP: {ant.erp_watts}W, Azimut: {ant.azimuth_deg}°, Tilt: {ant.tilt_deg}°"
+            }
+        }
+        features.append(antenna_feature)
+
+    # 2. Nur Hotspots exportieren (E >= threshold)
+    hotspots = [r for r in results if r.e_field_vm >= threshold_vm]
+
+    for r in hotspots:
+        # Farbcodierung nach E-Feldstärke
+        e = r.e_field_vm
+        if e >= 10.0:
+            color = "#8B0000"  # Dunkelrot
+            size = "large"
+        elif e >= 7.5:
+            color = "#FF0000"  # Rot
+            size = "large"
+        elif e >= 6.0:
+            color = "#FF4500"  # Orange-Rot
+            size = "medium"
+        else:  # 5.0 - 6.0
+            color = "#FFA500"  # Orange
+            size = "medium"
+
+        # Adresse aus aggregated_hotspots holen falls vorhanden
+        address = ""
+        if aggregated_hotspots:
+            for hotspot in aggregated_hotspots:
+                if hotspot['egid'] == r.building_id.replace('GDB_EGID_', ''):
+                    address = hotspot.get('address', '')
+                    break
+
+        feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [float(r.x), float(r.y), float(r.z)],
+            },
+            "properties": {
+                "type": "hotspot",
+                "building_id": str(r.building_id),
+                "e_field_vm": round(float(r.e_field_vm), 2),
+                "exceeds_limit": bool(r.exceeds_limit),
+                "z": round(float(r.z), 2),
+                "address": address,
+                "marker-color": color,
+                "marker-size": size,
+                "marker-symbol": "danger",
+                "title": f"⚠️ Hotspot: {round(float(r.e_field_vm), 2)} V/m",
+                "description": f"E-Feld: {round(float(r.e_field_vm), 2)} V/m (Grenzwert: {threshold_vm} V/m)<br>Höhe: {round(float(r.z), 1)}m<br>{address}"
+            }
+        }
+        features.append(feature)
+
+    geojson = {
+        "type": "FeatureCollection",
+        "crs": {
+            "type": "name",
+            "properties": {"name": "urn:ogc:def:crs:EPSG::2056"},  # LV95
+        },
+        "features": features,
+    }
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(geojson, f, indent=2, ensure_ascii=False)
+
+    print(f"GeoJSON für geo.admin.ch exportiert: {output_path}")
+    print(f"  → {len(hotspots)} Hotspots + {len(antenna_system.antennas)} Antenne(n)")
+
+
 def _fetch_wms_basemap(
     bbox: tuple[float, float, float, float],
     width: int,
