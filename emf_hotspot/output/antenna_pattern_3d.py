@@ -111,21 +111,12 @@ def create_antenna_lobe_3d(
 
     # Rotiere auf echte Azimut/Tilt-Richtung
     # 1. Rotation um Z-Achse (Azimut): 0° = Nord = +Y, 90° = Ost = +X
-    azimuth_rad = np.radians(azimuth_deg)
-    cos_az = np.cos(azimuth_rad)
-    sin_az = np.sin(azimuth_rad)
+    # WICHTIG: Lokales System hat +X als Hauptstrahlrichtung
+    # Aber Azimut 0° = Nord = +Y global
+    # Also: Azimut_effektiv = Azimut + 90° (um von +X lokal zu Nord zu kommen)
+    azimuth_rad = np.radians(azimuth_deg + 90)  # +90° Offset!
 
     # Rotationsmatrix um Z (Azimut)
-    # Achtung: 0° = Nord = +Y, also 90° Offset zu üblichem Koordinatensystem
-    # LV95: +E = Ost = +X, +N = Nord = +Y
-    # Azimut 0° = Nord → in +Y Richtung
-    # Azimut 90° = Ost → in +X Richtung
-
-    # Anpassen: Azimut 0° in lokalen Koordinaten ist +X, aber soll +Y sein (Nord)
-    # → Rotation um -90° im lokalen System, dann Rotation um Azimut
-
-    # Einfacher: Direkte Transformation
-    # Lokales +X (Azimut 0°) → Globales Azimut_deg
     rotation_z = np.array([
         [np.cos(azimuth_rad), -np.sin(azimuth_rad), 0],
         [np.sin(azimuth_rad),  np.cos(azimuth_rad), 0],
