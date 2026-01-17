@@ -1,0 +1,131 @@
+start	end	text
+0	22380	Hello, I show you how to do the data entry from the data sheet, the given Standort Datenblatt.
+22380	33820	You look for this page first for the page called Zusatzplatt 2.
+33820	37340	It's also A2.
+37340	41780	This is where you start.
+41780	50340	And you open a template for the calculation.
+50340	58340	And there you find the term Zusatzblatt 2, again here.
+58340	65700	So now you enter the data, which is here in red.
+65700	79660	you look up above, you start with the date of the sheet, which you cannot find here on
+79660	93740	this page. So you have to start on the first page. I go back to the first page. This is
+93740	107860	the first page here. And at the bottom you find the date. And you put it here.
+107860	126260	And the revision number is 1.22 and the address of the antenna, which you find usually on
+126260	131260	page three at the top, yes, the address.
+131260	160780	And yeah, that's not right, you don't have to change this, it's the newest revision of
+160780	185980	this template. So next data in red is Höhenquote. This was on page A2. Here we are. Höhenquote.
+190780	216380	1099, 1099 dot, nothing more here.
+216380	228140	Now the frequency. Frequency is here. At least you check that you enter the right values.
+228140	251040	it's has to be changed 1800 so these depend on that so but you can overwrite
+251040	264600	this so now there are only six not more you sometimes number seven is on the
+264600	272720	next page or down next table not in this case in this case you only have six
+272720	283400	columns and in the template you have much more. I had 18 columns so you just
+283400	290400	delete the unneeded columns.
+302400	306400	Delete the columns.
+306400	321720	So that was the frequency. Now the company who creates it. Sometimes you have a different
+321720	333040	name in different columns. Not in this case. It's all the same. Swisscom. Next line is
+333040	351240	the antenna type, so you just put the antenna type into your clipboard and enter it here.
+351240	357520	By automatic, this is copied to the other columns, but you have to check because sometimes
+357520	361040	Sometimes it is different.
+361040	368000	The difference at the end of the name is of no importance.
+368000	379460	Best is even to delete it, because this end is the same.
+379460	383680	It indicates just the frequency.
+383680	401320	You see it here 7, 8, 900, 700 to 900 is here and here it is 18, 21, 26, 36 is this frequency.
+401320	425440	So just delete the rest, and this is not an O, it is a zero, and that is not an L, it
+425440	441280	is the one, so that would be the correct type. Next, adaptiver Betrieb is no no no no, always,
+441280	454880	and subarrays it's always zero or none. Now we have Höhe der Antenne that is
+454880	479080	different. So you take this for the first. And this for the second. And this again.
+479080	500440	And now the power, Sendeleistung, just add this.
+500440	529600	And the values for the direction azimuth is 60.
+529600	540800	And this repeats, usually.
+540800	570040	So horizontal 0, 9, 6, 0, 9, 6, and the other one is minus 2.
+570040	596200	minus 2, minus 2, minus, minus 12, minus 7, minus 12, minus 12, and that is a calculated
+596200	607480	line we keep it as it is calculated and that's all on this sheet so you scroll
+607480	623800	down to the next one and here you scroll down to number of Omen number one that
+623800	638040	is this the number in situation plan is 1 so perhaps 0 1 and now we have to save
+638040	648200	the file the table to the name we just found
+648200	652760	Omen 01
+665600	677400	Adresse und Beschreibung. Beschreibung der Adresse. Mast, Fuß. That's what you put here.
+678200	698600	And here Nutzung, this field is here. Nutzung after the double dot. Durch Zugang.
+708200	736400	This is the next value we need, that's Höhe über Boden, Höhe über Boden, 1.5, 1.5.
+736400	752120	and here we have deleted one entry field that is the next one here over here in
+752120	766640	0, also 150.
+766640	777480	This was red before, but we deleted it when we deleted the columns, but it doesn't care
+777480	785280	whether it's red or not it's just for your orientation while enter the data so
+785280	793320	now the next values from the table and the top of this table repeats the
+793320	801960	format table so you don't have to put this in again but we continue with
+801960	813440	horizontal distance or your central distance it's zero zero keep this
+815480	825200	whoo on the sheets vision antenna and oka who notice sheet here you put these
+825200	853560	is 8.20, 11, 8.20, 8.20, 11, and 8.20.
+853560	858560	So, in fact, this is our entry fields.
+862520	866240	Should not be gray and should be red.
+867160	870240	That is a mistake in the template.
+870240	872820	I have to correct this for the next revision.
+874160	877120	But this is the line which is calculated
+877120	879920	and it is correctly calculated.
+879920	881560	I have the same values.
+881560	884560	And now the next.
+892560	894560	Azimuth.
+895560	897560	Azimuth.
+897560	920400	We have to write in this, that is 180.
+920400	925400	All fields, copy this across the line.
+928920	929960	Elevation.
+932760	937400	This is taken from above, so don't change anything there.
+938460	939380	It's gray.
+944800	948660	Critical horizontal senderichtung.
+948660	975660	Critical horizontal senderichtung, 60, that's correct, vertical, star 2, plus 7, minus 7,
+975660	990020	Minus 12, 2, and minus 17.
+990020	1001620	The next two you just check, usually it is correct, yes, and here too, it's the same,
+1001620	1010140	dis-calculated values. So next red fields to be entered are these Richtungsabschwächung,
+1010140	1032340	25.9, 11.3, 5.3, 25, 12.4, 2, 4.
+1040140	1067460	Oops.
+1067460	1072460	Next two are calculated.
+1072460	1083420	Next red one is not given here in this case, but we will see it in the next example.
+1083420	1093880	So keep this and look for the final value and they calculated 13.25 and we calculated
+1093880	1118400	13.15. I have an idea how this comes. There is somewhere a rounding here.
+1118400	1130400	I don't care about the difference.
+1130400	1137280	It's about 1% difference, so if it is 1% difference, then don't care about this.
+1137280	1139680	That's correct.
+1139680	1144320	We did it correctly.
+1144320	1157160	So you save this again, save, and scroll down to the next page.
+1157160	1161140	Next page is Omen number 2.
+1161140	1178380	So for this, we save this under a new name, 02.
+1178380	1181060	And the top is the same.
+1181060	1188300	We start here with 02.
+1188300	1213500	And now the address of this point, enter the address, and the purpose of it, wunnen.
+1213500	1241500	And the other value, value, value, value is nine, nine, nine, nine, nine, nine, nine,
+1241500	1244860	The value is 9.2.
+1253140	1256740	Go down, this is repeated.
+1256740	1261620	And now we are, we look for horizontal
+1261620	1264100	upstand, horizontal upstand.
+1265900	1270740	45.3 through the whole row.
+1271500	1290620	okay 5.3 next to is calculated no this is not calculated has to be entered point
+1290620	1311080	point five, three three, point five, point five, three three, point five, yes and this
+1311080	1322920	This should be calculated identical, just check.
+1322920	1350040	And the next row, as you would, 244, 244 across the row.
+1350040	1372480	it's the same critical horizontal critical horizontal critical horizontal 60 it's the same
+1372480	1400940	and minus four minus yeah minus two plus four minus one minus two minus one minus one
+1402480	1428200	Here is the difference, but it's not red, so you don't enter it, but here.
+1428200	1455200	24.8, 4.9, 7.8, 26.5, 4.4, 10.2
+1458200	1479280	Next line, 0.1, 0.4, 0, 0, 0.3, 0.
+1479280	1489880	is calculated and here you find Bauweise, Glass, Glass, zero. It's the only two you
+1489880	1502400	have to enter, the rest is identical. And to check whether you are right, you look
+1502400	1516200	Look at these values, this row, and that should be identical to this row.
+1516200	1531760	There is a small difference, but it's about 1%, so don't care, similar here, but perhaps
+1531760	1540720	you could find. The reason if you go up in the values which are different,
+1540720	1553320	perhaps you could mark this as different and go up and find what might be the
+1553320	1558320	Because of the difference, it's somewhere in these data.
+1560320	1561320	It's this.
+1562320	1565320	This value. Let's check.
+1583320	1601720	did not help much but okay yeah and here is also as a result big difference but
+1601720	1609920	it's just one percent so don't care about this otherwise you you look which
+1609920	1621560	column is much different this compare this with this where the difference is
+1621560	1631360	and then you find the values which are wrong which are these two columns and
+1631360	1639280	then you go back and look which what values might have been entered wrongly
+1639280	1658320	by you. Yeah, that's it. Now you'll save this again under the name 02 and now you continue
+1658320	1675240	up to the next one three and save under the new name three and continue as
+1675240	1676240	as before.
+1686240	1688760	Put in three here, zero, three.
+1694360	1699480	Brunnistraße, that is third floor.
+1699480	1715600	It's also wohnen here and the horizontal distance is different.
+1715600	1745320	Höhe über Boden, 10.33, 11.90, that's this, and so on, as shown before.
+1745320	1755320	Thank you for your patience, enjoy and you can help me a lot with this work.

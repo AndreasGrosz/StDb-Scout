@@ -1636,7 +1636,13 @@ def export_to_vtk(
                             faces.extend([3, 0, i, i + 1])
 
                     if faces:
-                        mesh = pv.PolyData(points_wall, faces=faces)
+                        # Konvertiere faces zu Liste falls numpy array
+                        if hasattr(faces, 'tolist'):
+                            faces_list = faces.tolist()
+                        else:
+                            faces_list = faces
+
+                        mesh = pv.PolyData(points_wall, faces=faces_list)
                         mesh["Type"] = np.full(mesh.n_cells, 0)  # 0 = Wall
                         building_meshes.append(mesh)
                 except:

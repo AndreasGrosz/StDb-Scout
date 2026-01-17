@@ -1,0 +1,160 @@
+Yeah, hello, today I show you how to use GIMP, this software, graphic software or Photoshop
+can also be used to find out whether two antenna diagrams are identical or have differences
+in it.
+With this tool you open one of the files.
+In this case it will be the technical data from Huawei.
+So this technical data sheet consists of five pages, but we just use the last one in this
+case, because here you can see the diagrams.
+The other pages contain just tables.
+So we mark this just to select one page and import that.
+Now it is here.
+So next I open a second file and you use open as levels.
+And you open the Standout Datenblatt, a data sheet for this antenna, and here we have the
+same problem.
+Which pages are we interested in?
+You should prepare this before you open, that you know what you want to look at.
+So I open this again in another viewer, there we are, here's the viewer, and I orient myself
+where these diagrams are, which I'm interested in.
+What's these pages? Page 20 to 27, 8 pages. So I can close this and select 20 to 27.
+So, they will be opened as levels, this is German, in English it will be shown as levels,
+you import. After this, the levels or pages will be shown here at the right and the problem
+is that these pages are in landscape mode. So you open image, adjust to the
+levels.
+Now we can see this.
+So you see the first image and behind this the second and so on.
+So you switch off all the other images and drag the one from the data sheet whereby to
+to the top, and then you'll see here are several images.
+And we want to compare this, and we compare this one.
+For the first step, what we do, we get rid of the white background of this image that
+works like this. Level. Now colors. And look out that you mark this page here. And then
+colors. Color to alpha. Choose white which is default and say okay. Now the color is
+gone. You will see this if you switch off this page. Now you see it has no background anymore.
+And this is the image we want to compare it with to the right. This one.
+so we cut out which frequency this is about the frequency this is here
+frequency 700 to 900 and something that is this image so we look in this image
+for the same 690 to 960 that is the one we need so we cut this out make sure
+that we are talking about this image. So click here and now draw a rectangle.
+and with copy we copy this and now we can paste it as a new level paste there we are
+Create a new level, but not level, I always use the wrong word, it's layers, not level.
+To a new layer, switch off this image, switch on this, and drag this layer over this one.
+So, first to the side.
+Then we see that the orientation of this is towards the top and here it is towards the
+right.
+But it should be the same.
+So we have to turn this one to the right to make it similar.
+Transformation, turn 90%.
+Now it has the right, the correct orientation.
+But it has a different size.
+We have to adjust the size too.
+And for this we have to measure the size.
+Use the measure tool.
+Click here on one end.
+Draw down.
+And at the bottom you can read the size 163.
+We put 163 into the calculator, by, and then you measure this thing, that is 295, it's
+down here, by 295.
+55 percent or if you take the reverse value, 181 percent. So you go here, say
+scale level change this to percent 181 percent scale it now it has the same
+size now you can draw it over
+And look that the middle point is exactly on the other midpoint, like this.
+And now we find the fault as expected, because this, which I switch on and off, is the original
+original data, and this is the given data.
+And the stunt or dark blood.
+So we add another layer, now this goes by automatic, the new layer.
+Now we add a text field, find space where we could write some text, choose color, let's
+Let's say blue, and write blue, the other one, who am I?
+Okay, that's this part.
+Now we take care about the, this is the horizontal part, horizontal, you see it here, now we
+take care about the vertical part. The vertical diagram is this, or from Huawei it's in red.
+So we go back to the worldwide, this one, make a copy of it, that is here, yeah, copy,
+Switch this off, take the copy, draw this to the, here towards this, now we have to
+turn it back. This one. Level. Transformation. Back. And now we can put it on top. If you
+We want to be very precise, to size it up.
+There we are.
+So, and again, we need a text field.
+For this, we could just copy this one, same as here, copy and move it down here and change
+the text.
+Mark the text icon, and this is red, red diagram, black, stand on top, stand on four, vertical.
+Let's change it to vertical and blue, keep that blue, and here we change, add the text
+Torisonto, Torisonto, also in German, no, yeah, now, switch this on again, if you want
+to do it very nice then we should delete most of the red things so we go to this
+level take the rubber and delete the red line because this is confusing here in this diagram.
+If you delete some of these dots, it doesn't matter, and if you delete it too much, like
+here in this case, you can undo it with CTRL Z, or you can size it up to make it easier.
+th
+And here the same but the blue line must go, so mark this level and delete the blue line.
+If you...
+Yeah, that's good.
+Okay.
+That's all I wanted.
+So now, the same with other pages.
+Here we have the page for frequency, same frequency, we don't need the same again, we
+I can add a white page at the end.
+so this page first must be turned back
+We have to find this, this is this page, and turn it against clockwise, counter-clockwise,
+drag it towards this.
+Yeah, and again
+drag it here.
+Take out the other lever, this one, and that is the Y.
+So, we drag it to the center, there we are.
+already fits.
+So, the third page is also good.
+Next page is here, we have to drag this one until it fits.
+That is 1800.
+So, if we write the frequency here, to name this, that is AD for antenna diagram, 690
+9p to 960
+It's the same
+No, I made a mistake.
+The value for the frequency is this one, the smaller line above.
+so that is 700, 800, 900
+and here the same
+and here the same
+And now we have 1800 in 10 diagram, 1821, 2636.
+Next level, we have to move again.
+and the same frequency.
+I took the wrong key. It's not AG, it's AD.
+AD.
+AD.
+th
+So, and the last one... no, that is the last one.
+Good.
+So now we need to compare it with the right frequency, because here we compare 600 to
+900 megahertz with 3600.
+So we have to switch off this, like this, and add the correct level from the diagram
+that was here, that was this one, this one, so we go to this level,
+Make a rectangle around that, copy, insert, add to new layer, switch this off and move
+this layer towards this diagram and we copy this for horizontal and for vertical.
+Vertical is already in the, we go back again because first we have to resize it, it was
+181% scale, the layer, 181% scale, and now we copy it, and can drag the copy here.
+It does not fit really. It's smaller, huh?
+So we have to do the resize again.
+Yeah, we have to do the measurement again.
+to get the right size. So, from one end to the other. Drag and drop this. It's 284.
+one hundred and five percent
+this one must be resized. Big bigger. A bit bigger. Scale 105%. Scale. And now it fits.
+So, we make a copy and drag this copy to the Vertigo Diabra.
+And we write something here.
+Where have I got to go for 269T and the other one?
+And of course, now I write vertical for 900.
+Six and a half, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve,
+So when all is in place, in this case we can
+draw the size of the page, which fits all, mark all,
+Drag this to this page.
+And now...
+image by selection. So now we have a nice page here, and we can
+shoes, what do we like, what is this, who am I?
+Vertical 690
+Boai horizontal
+Boai vertical
+Should be the same, no?
+Let's take a look.
+Ah, here's the size problem.
+The 5% is somehow wrong.
+OK, this one is too small, so we just choose this and size it up, so that's it.
+Size it up, scale, 105 percent.
+Now it fits.
+So, we have the 960.
+And this is also for about the 900.
+okay that's it now we save this under the name
+Now, take this name and that's what I need to be done.
+Thank you.

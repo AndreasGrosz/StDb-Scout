@@ -1,0 +1,640 @@
+1
+00:00:00,000 --> 00:00:20,320
+Yeah, hello, today I show you how to use GIMP, this software, graphic software or Photoshop
+
+2
+00:00:20,320 --> 00:00:36,440
+can also be used to find out whether two antenna diagrams are identical or have differences
+
+3
+00:00:36,440 --> 00:00:38,560
+in it.
+
+4
+00:00:38,560 --> 00:00:44,240
+With this tool you open one of the files.
+
+5
+00:00:44,240 --> 00:01:03,560
+In this case it will be the technical data from Huawei.
+
+6
+00:01:03,560 --> 00:01:12,200
+So this technical data sheet consists of five pages, but we just use the last one in this
+
+7
+00:01:12,200 --> 00:01:16,960
+case, because here you can see the diagrams.
+
+8
+00:01:16,960 --> 00:01:24,160
+The other pages contain just tables.
+
+9
+00:01:24,160 --> 00:01:33,880
+So we mark this just to select one page and import that.
+
+10
+00:01:33,880 --> 00:01:37,120
+Now it is here.
+
+11
+00:01:37,120 --> 00:02:01,320
+So next I open a second file and you use open as levels.
+
+12
+00:02:01,320 --> 00:02:12,360
+And you open the Standout Datenblatt, a data sheet for this antenna, and here we have the
+
+13
+00:02:12,360 --> 00:02:14,680
+same problem.
+
+14
+00:02:14,680 --> 00:02:17,960
+Which pages are we interested in?
+
+15
+00:02:17,960 --> 00:02:27,720
+You should prepare this before you open, that you know what you want to look at.
+
+16
+00:02:27,720 --> 00:02:47,520
+So I open this again in another viewer, there we are, here's the viewer, and I orient myself
+
+17
+00:02:47,520 --> 00:02:51,920
+where these diagrams are, which I'm interested in.
+
+18
+00:02:51,920 --> 00:03:16,920
+What's these pages? Page 20 to 27, 8 pages. So I can close this and select 20 to 27.
+
+19
+00:03:16,920 --> 00:03:38,880
+So, they will be opened as levels, this is German, in English it will be shown as levels,
+
+20
+00:03:38,880 --> 00:04:07,320
+you import. After this, the levels or pages will be shown here at the right and the problem
+
+21
+00:04:07,320 --> 00:04:22,680
+is that these pages are in landscape mode. So you open image, adjust to the
+
+22
+00:04:22,680 --> 00:04:25,320
+levels.
+
+23
+00:04:25,320 --> 00:04:31,920
+Now we can see this.
+
+24
+00:04:31,920 --> 00:04:38,400
+So you see the first image and behind this the second and so on.
+
+25
+00:04:38,400 --> 00:04:55,840
+So you switch off all the other images and drag the one from the data sheet whereby to
+
+26
+00:04:55,840 --> 00:05:00,840
+to the top, and then you'll see here are several images.
+
+27
+00:05:25,840 --> 00:05:55,560
+And we want to compare this, and we compare this one.
+
+28
+00:05:55,840 --> 00:06:14,200
+For the first step, what we do, we get rid of the white background of this image that
+
+29
+00:06:14,200 --> 00:06:27,800
+works like this. Level. Now colors. And look out that you mark this page here. And then
+
+30
+00:06:27,800 --> 00:06:40,440
+colors. Color to alpha. Choose white which is default and say okay. Now the color is
+
+31
+00:06:40,440 --> 00:06:50,440
+gone. You will see this if you switch off this page. Now you see it has no background anymore.
+
+32
+00:06:54,280 --> 00:07:01,720
+And this is the image we want to compare it with to the right. This one.
+
+33
+00:07:01,720 --> 00:07:23,040
+so we cut out which frequency this is about the frequency this is here
+
+34
+00:07:23,040 --> 00:07:35,280
+frequency 700 to 900 and something that is this image so we look in this image
+
+35
+00:07:35,280 --> 00:07:48,840
+for the same 690 to 960 that is the one we need so we cut this out make sure
+
+36
+00:07:48,840 --> 00:07:59,840
+that we are talking about this image. So click here and now draw a rectangle.
+
+37
+00:07:59,840 --> 00:08:28,040
+and with copy we copy this and now we can paste it as a new level paste there we are
+
+38
+00:08:28,040 --> 00:08:39,520
+Create a new level, but not level, I always use the wrong word, it's layers, not level.
+
+39
+00:08:39,520 --> 00:08:56,400
+To a new layer, switch off this image, switch on this, and drag this layer over this one.
+
+40
+00:08:56,400 --> 00:09:08,800
+So, first to the side.
+
+41
+00:09:08,800 --> 00:09:15,680
+Then we see that the orientation of this is towards the top and here it is towards the
+
+42
+00:09:15,680 --> 00:09:16,680
+right.
+
+43
+00:09:16,680 --> 00:09:19,100
+But it should be the same.
+
+44
+00:09:19,100 --> 00:09:26,100
+So we have to turn this one to the right to make it similar.
+
+45
+00:09:26,100 --> 00:09:32,100
+Transformation, turn 90%.
+
+46
+00:09:32,100 --> 00:09:39,100
+Now it has the right, the correct orientation.
+
+47
+00:09:39,100 --> 00:09:41,100
+But it has a different size.
+
+48
+00:09:41,100 --> 00:09:46,100
+We have to adjust the size too.
+
+49
+00:09:46,100 --> 00:09:49,100
+And for this we have to measure the size.
+
+50
+00:09:57,100 --> 00:10:00,100
+Use the measure tool.
+
+51
+00:10:00,100 --> 00:10:03,100
+Click here on one end.
+
+52
+00:10:07,100 --> 00:10:08,100
+Draw down.
+
+53
+00:10:08,100 --> 00:10:14,100
+And at the bottom you can read the size 163.
+
+54
+00:10:16,100 --> 00:10:35,580
+We put 163 into the calculator, by, and then you measure this thing, that is 295, it's
+
+55
+00:10:35,580 --> 00:10:44,140
+down here, by 295.
+
+56
+00:10:44,140 --> 00:11:03,020
+55 percent or if you take the reverse value, 181 percent. So you go here, say
+
+57
+00:11:03,020 --> 00:11:16,780
+scale level change this to percent 181 percent scale it now it has the same
+
+58
+00:11:16,780 --> 00:11:22,140
+size now you can draw it over
+
+59
+00:11:22,140 --> 00:11:41,260
+And look that the middle point is exactly on the other midpoint, like this.
+
+60
+00:11:41,260 --> 00:11:52,100
+And now we find the fault as expected, because this, which I switch on and off, is the original
+
+61
+00:11:52,100 --> 00:12:13,100
+original data, and this is the given data.
+
+62
+00:12:22,100 --> 00:12:42,300
+And the stunt or dark blood.
+
+63
+00:12:42,300 --> 00:12:50,420
+So we add another layer, now this goes by automatic, the new layer.
+
+64
+00:12:50,420 --> 00:13:06,740
+Now we add a text field, find space where we could write some text, choose color, let's
+
+65
+00:13:06,740 --> 00:13:23,740
+Let's say blue, and write blue, the other one, who am I?
+
+66
+00:13:53,740 --> 00:14:07,380
+Okay, that's this part.
+
+67
+00:14:07,380 --> 00:14:21,060
+Now we take care about the, this is the horizontal part, horizontal, you see it here, now we
+
+68
+00:14:21,060 --> 00:14:31,300
+take care about the vertical part. The vertical diagram is this, or from Huawei it's in red.
+
+69
+00:14:31,300 --> 00:14:54,300
+So we go back to the worldwide, this one, make a copy of it, that is here, yeah, copy,
+
+70
+00:14:54,300 --> 00:15:12,940
+Switch this off, take the copy, draw this to the, here towards this, now we have to
+
+71
+00:15:12,940 --> 00:15:33,380
+turn it back. This one. Level. Transformation. Back. And now we can put it on top. If you
+
+72
+00:15:33,380 --> 00:15:37,380
+We want to be very precise, to size it up.
+
+73
+00:15:45,380 --> 00:15:47,380
+There we are.
+
+74
+00:15:55,380 --> 00:15:58,380
+So, and again, we need a text field.
+
+75
+00:15:58,380 --> 00:16:15,020
+For this, we could just copy this one, same as here, copy and move it down here and change
+
+76
+00:16:15,020 --> 00:16:23,060
+the text.
+
+77
+00:16:23,060 --> 00:16:45,060
+Mark the text icon, and this is red, red diagram, black, stand on top, stand on four, vertical.
+
+78
+00:16:45,060 --> 00:16:56,260
+Let's change it to vertical and blue, keep that blue, and here we change, add the text
+
+79
+00:16:56,260 --> 00:17:24,020
+Torisonto, Torisonto, also in German, no, yeah, now, switch this on again, if you want
+
+80
+00:17:24,020 --> 00:17:44,020
+to do it very nice then we should delete most of the red things so we go to this
+
+81
+00:17:44,020 --> 00:18:08,420
+level take the rubber and delete the red line because this is confusing here in this diagram.
+
+82
+00:18:08,420 --> 00:18:15,460
+If you delete some of these dots, it doesn't matter, and if you delete it too much, like
+
+83
+00:18:15,460 --> 00:18:32,460
+here in this case, you can undo it with CTRL Z, or you can size it up to make it easier.
+
+84
+00:19:02,460 --> 00:19:09,460
+th
+
+85
+00:19:32,460 --> 00:19:57,460
+And here the same but the blue line must go, so mark this level and delete the blue line.
+
+86
+00:19:57,460 --> 00:20:00,460
+If you...
+
+87
+00:20:57,460 --> 00:21:17,460
+Yeah, that's good.
+
+88
+00:21:17,460 --> 00:21:24,740
+Okay.
+
+89
+00:21:24,740 --> 00:21:48,360
+That's all I wanted.
+
+90
+00:21:48,360 --> 00:21:56,360
+So now, the same with other pages.
+
+91
+00:21:56,360 --> 00:22:24,360
+Here we have the page for frequency, same frequency, we don't need the same again, we
+
+92
+00:22:24,360 --> 00:22:29,360
+I can add a white page at the end.
+
+93
+00:22:29,360 --> 00:22:55,560
+so this page first must be turned back
+
+94
+00:22:55,560 --> 00:23:18,320
+We have to find this, this is this page, and turn it against clockwise, counter-clockwise,
+
+95
+00:23:18,320 --> 00:23:23,600
+drag it towards this.
+
+96
+00:23:33,920 --> 00:23:38,560
+Yeah, and again
+
+97
+00:23:40,080 --> 00:23:43,120
+drag it here.
+
+98
+00:23:43,120 --> 00:24:07,120
+Take out the other lever, this one, and that is the Y.
+
+99
+00:24:07,120 --> 00:24:28,400
+So, we drag it to the center, there we are.
+
+100
+00:24:28,400 --> 00:24:29,400
+already fits.
+
+101
+00:24:58,400 --> 00:25:27,600
+So, the third page is also good.
+
+102
+00:25:27,600 --> 00:25:52,600
+Next page is here, we have to drag this one until it fits.
+
+103
+00:25:57,600 --> 00:26:16,600
+That is 1800.
+
+104
+00:26:16,600 --> 00:26:45,600
+So, if we write the frequency here, to name this, that is AD for antenna diagram, 690
+
+105
+00:26:45,600 --> 00:26:50,080
+9p to 960
+
+106
+00:27:02,720 --> 00:27:04,720
+It's the same
+
+107
+00:27:45,600 --> 00:28:04,440
+No, I made a mistake.
+
+108
+00:28:04,440 --> 00:28:10,400
+The value for the frequency is this one, the smaller line above.
+
+109
+00:28:10,400 --> 00:28:18,080
+so that is 700, 800, 900
+
+110
+00:28:26,720 --> 00:28:27,920
+and here the same
+
+111
+00:28:36,000 --> 00:28:37,360
+and here the same
+
+112
+00:28:40,400 --> 00:29:08,400
+And now we have 1800 in 10 diagram, 1821, 2636.
+
+113
+00:29:38,400 --> 00:30:06,400
+Next level, we have to move again.
+
+114
+00:30:06,400 --> 00:30:13,400
+and the same frequency.
+
+115
+00:30:36,400 --> 00:30:45,400
+I took the wrong key. It's not AG, it's AD.
+
+116
+00:30:49,400 --> 00:30:50,400
+AD.
+
+117
+00:30:55,400 --> 00:30:56,400
+AD.
+
+118
+00:31:06,400 --> 00:31:13,400
+th
+
+119
+00:31:36,400 --> 00:32:01,400
+So, and the last one... no, that is the last one.
+
+120
+00:32:01,400 --> 00:32:19,840
+Good.
+
+121
+00:32:19,840 --> 00:32:38,840
+So now we need to compare it with the right frequency, because here we compare 600 to
+
+122
+00:32:38,840 --> 00:32:47,760
+900 megahertz with 3600.
+
+123
+00:32:47,760 --> 00:33:07,560
+So we have to switch off this, like this, and add the correct level from the diagram
+
+124
+00:33:07,560 --> 00:33:35,160
+that was here, that was this one, this one, so we go to this level,
+
+125
+00:33:37,560 --> 00:34:07,040
+Make a rectangle around that, copy, insert, add to new layer, switch this off and move
+
+126
+00:34:07,040 --> 00:34:34,800
+this layer towards this diagram and we copy this for horizontal and for vertical.
+
+127
+00:34:37,040 --> 00:34:54,040
+Vertical is already in the, we go back again because first we have to resize it, it was
+
+128
+00:34:54,040 --> 00:35:14,440
+181% scale, the layer, 181% scale, and now we copy it, and can drag the copy here.
+
+129
+00:35:24,040 --> 00:35:32,040
+It does not fit really. It's smaller, huh?
+
+130
+00:35:37,040 --> 00:35:40,040
+So we have to do the resize again.
+
+131
+00:35:54,040 --> 00:36:23,960
+Yeah, we have to do the measurement again.
+
+132
+00:36:23,960 --> 00:36:45,160
+to get the right size. So, from one end to the other. Drag and drop this. It's 284.
+
+133
+00:37:15,160 --> 00:37:31,280
+one hundred and five percent
+
+134
+00:37:45,160 --> 00:38:09,660
+this one must be resized. Big bigger. A bit bigger. Scale 105%. Scale. And now it fits.
+
+135
+00:38:09,660 --> 00:38:19,660
+So, we make a copy and drag this copy to the Vertigo Diabra.
+
+136
+00:38:29,660 --> 00:38:34,660
+And we write something here.
+
+137
+00:38:34,660 --> 00:38:54,660
+Where have I got to go for 269T and the other one?
+
+138
+00:39:04,660 --> 00:39:23,660
+And of course, now I write vertical for 900.
+
+139
+00:39:34,660 --> 00:40:03,760
+Six and a half, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve,
+
+140
+00:40:33,760 --> 00:41:01,160
+So when all is in place, in this case we can
+
+141
+00:41:01,160 --> 00:41:24,660
+draw the size of the page, which fits all, mark all,
+
+142
+00:41:24,660 --> 00:41:29,060
+Drag this to this page.
+
+143
+00:41:29,060 --> 00:41:53,220
+And now...
+
+144
+00:41:53,220 --> 00:42:21,140
+image by selection. So now we have a nice page here, and we can
+
+145
+00:42:21,140 --> 00:42:51,060
+shoes, what do we like, what is this, who am I?
+
+146
+00:42:51,140 --> 00:42:57,140
+Vertical 690
+
+147
+00:43:06,140 --> 00:43:09,140
+Boai horizontal
+
+148
+00:43:10,140 --> 00:43:12,140
+Boai vertical
+
+149
+00:43:15,140 --> 00:43:17,140
+Should be the same, no?
+
+150
+00:43:21,140 --> 00:43:25,140
+Let's take a look.
+
+151
+00:43:36,140 --> 00:43:39,140
+Ah, here's the size problem.
+
+152
+00:43:44,140 --> 00:43:48,140
+The 5% is somehow wrong.
+
+153
+00:43:51,140 --> 00:44:20,140
+OK, this one is too small, so we just choose this and size it up, so that's it.
+
+154
+00:44:20,140 --> 00:44:24,140
+Size it up, scale, 105 percent.
+
+155
+00:44:28,140 --> 00:44:30,140
+Now it fits.
+
+156
+00:44:32,140 --> 00:44:36,140
+So, we have the 960.
+
+157
+00:44:41,140 --> 00:44:45,140
+And this is also for about the 900.
+
+158
+00:46:20,140 --> 00:46:48,300
+okay that's it now we save this under the name
+
+159
+00:46:50,140 --> 00:47:04,820
+Now, take this name and that's what I need to be done.
+
+160
+00:47:04,820 --> 00:47:05,620
+Thank you.
+

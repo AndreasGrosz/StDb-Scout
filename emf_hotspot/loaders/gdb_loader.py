@@ -206,11 +206,10 @@ def _extract_all_surfaces(geom) -> List[WallSurface]:
     geom_type = geom.GetGeometryType()
     geom_name = geom.GetGeometryName()
 
-    # TIN: Spezialbehandlung - kombiniere alle Triangles zu einer Wand
+    # TIN: Spezialbehandlung - clustere Triangles nach Wänden
     if geom_name == 'TIN':
-        surface = _extract_surface_from_tin(geom)
-        if surface:
-            surfaces.append(surface)
+        tin_surfaces = _extract_surface_from_tin(geom)
+        surfaces.extend(tin_surfaces)
 
     # Container-Typen: Rekursiv durchsuchen (MULTI*, COLLECTION, etc.)
     # WICHTIG: Vor POLYGON-Check, weil MULTIPOLYGON auch "POLYGON" enthält!
@@ -227,14 +226,77 @@ def _extract_all_surfaces(geom) -> List[WallSurface]:
     return surfaces
 
 
-def _extract_surface_from_tin(tin) -> Optional[WallSurface]:
+def _cluster_triangles_by_normal(triangles, normals, angle_threshold_deg=30.0):
     """
-    Extrahiert ALLE Triangles aus einem TIN als separates Mesh.
+    Clustert Triangles nach Normalenvektor.
 
-    WICHTIG: TIN-Vertices dürfen NICHT als Set gespeichert werden,
-    da die Reihenfolge für Triangles essentiell ist!
+    Triangles mit ähnlichen Normalen (innerhalb angle_threshold) werden gruppiert.
+    Dies trennt z.B. Nord-, Süd-, Ost-, West-Wände eines Gebäudes.
+
+    Args:
+        triangles: Liste von Triangle-Arrays (je 3 Punkte)
+        normals: Array von Normalenvektoren (N, 3)
+        angle_threshold_deg: Maximaler Winkel für gleiche Wand in Grad
+
+    Returns:
+        Liste von (cluster_triangles, cluster_normal) Tupeln
+    """
+    if len(triangles) == 0:
+        return []
+
+    cos_threshold = np.cos(np.radians(angle_threshold_deg))
+    clusters = []  # Liste von (triangles, normal) Tupeln
+
+    for tri_idx, (tri, normal) in enumerate(zip(triangles, normals)):
+        # Finde Cluster mit ähnlicher Normale
+        found_cluster = False
+        for cluster_triangles, cluster_normal in clusters:
+            # Dot-Product: 1 = gleiche Richtung, 0 = senkrecht, -1 = entgegengesetzt
+            similarity = np.dot(normal, cluster_normal)
+
+            if similarity > cos_threshold:
+                # Füge Triangle zu diesem Cluster hinzu
+                cluster_triangles.append(tri)
+                found_cluster = True
+                break
+
+        if not found_cluster:
+            # Neuer Cluster
+            clusters.append(([tri], normal.copy()))
+
+    # Berechne gemittelte Normale für jeden Cluster
+    result = []
+    for cluster_triangles, _ in clusters:
+        # Durchschnittliche Normale aller Triangles im Cluster
+        cluster_normals = []
+        for tri in cluster_triangles:
+            v1 = tri[1] - tri[0]
+            v2 = tri[2] - tri[0]
+            n = np.cross(v1, v2)
+            n_norm = np.linalg.norm(n)
+            if n_norm > 1e-6:
+                cluster_normals.append(n / n_norm)
+
+        if cluster_normals:
+            avg_normal = np.mean(cluster_normals, axis=0)
+            avg_normal = avg_normal / np.linalg.norm(avg_normal)
+        else:
+            avg_normal = np.array([0.0, 0.0, 1.0])
+
+        result.append((cluster_triangles, avg_normal))
+
+    return result
+
+
+def _extract_surface_from_tin(tin) -> List[WallSurface]:
+    """
+    Extrahiert ALLE Triangles aus einem TIN und clustert sie nach Wänden.
+
+    WICHTIG: TIN enthält oft ALLE Wände eines Gebäudes in EINEM Mesh.
+    Wir müssen die Triangles nach Normalenvektor clustern um separate Wände zu erhalten.
     """
     all_triangles = []  # Liste aller Triangle-Vertices (je 3 Punkte)
+    all_normals = []  # Normale jedes Triangles
 
     # Iteriere über alle Triangles im TIN
     for i in range(tin.GetGeometryCount()):
@@ -263,51 +325,59 @@ def _extract_surface_from_tin(tin) -> Optional[WallSurface]:
             # Bei 4 Punkten: Letzter Punkt ist meist Duplikat des ersten (Ring-Closing)
             if len(triangle_points) == 4 and np.allclose(triangle_points[0], triangle_points[3]):
                 triangle_points = triangle_points[:3]
-            all_triangles.append(triangle_points[:3])  # Nur erste 3 Punkte
+
+            tri = triangle_points[:3]
+            all_triangles.append(tri)
+
+            # Berechne Normale für dieses Triangle
+            try:
+                v1 = tri[1] - tri[0]
+                v2 = tri[2] - tri[0]
+                normal = np.cross(v1, v2)
+                normal_norm = np.linalg.norm(normal)
+                if normal_norm > 1e-6:
+                    normal = normal / normal_norm
+                else:
+                    normal = np.array([0.0, 0.0, 1.0])
+                all_normals.append(normal)
+            except:
+                all_normals.append(np.array([0.0, 0.0, 1.0]))
 
     if not all_triangles:
-        return None
+        return []
 
-    # Konvertiere alle Triangles zu einem großen Vertex-Array
-    # WICHTIG: Reihenfolge beibehalten! Nicht als Set!
-    vertices = []
-    faces = []
+    # Clustere Triangles nach Normalenvektor (= nach Wand)
+    # Triangles mit ähnlichen Normalen gehören zur gleichen Wand
+    all_normals_arr = np.array(all_normals)
+    clusters = _cluster_triangles_by_normal(all_triangles, all_normals_arr)
 
-    for tri_idx, tri in enumerate(all_triangles):
-        # Füge 3 Vertices hinzu
-        start_idx = len(vertices)
-        vertices.extend(tri)
+    # Erstelle für jeden Cluster (= jede Wand) eine separate WallSurface
+    surfaces = []
+    for cluster_idx, (cluster_triangles, cluster_normal) in enumerate(clusters):
+        vertices = []
+        faces = []
 
-        # Erstelle Face: [3, idx0, idx1, idx2]
-        faces.extend([3, start_idx, start_idx + 1, start_idx + 2])
+        for tri in cluster_triangles:
+            # Füge 3 Vertices hinzu
+            start_idx = len(vertices)
+            vertices.extend(tri)
 
-    vertices = np.array(vertices)
-    faces = np.array(faces)
+            # Erstelle Face: [3, idx0, idx1, idx2]
+            faces.extend([3, start_idx, start_idx + 1, start_idx + 2])
 
-    # Berechne durchschnittliche Normale über erste Triangle
-    normal = np.array([0.0, 0.0, 1.0])  # Default
-    if len(all_triangles) > 0 and len(all_triangles[0]) >= 3:
-        try:
-            tri = all_triangles[0]
-            v1 = tri[1] - tri[0]
-            v2 = tri[2] - tri[0]
-            normal = np.cross(v1, v2)
-            normal_norm = np.linalg.norm(normal)
+        vertices = np.array(vertices)
+        faces = np.array(faces)
 
-            if normal_norm > 1e-6:
-                normal = normal / normal_norm
-        except:
-            pass  # Nutze Default
+        # Erstelle WallSurface für diesen Cluster
+        surface = WallSurface(
+            id=f"tin_surface_{id(tin)}_wall_{cluster_idx}",
+            vertices=vertices,
+            normal=cluster_normal,
+            faces=faces,
+        )
+        surfaces.append(surface)
 
-    # Erstelle WallSurface mit Triangle-Faces
-    surface = WallSurface(
-        id=f"tin_surface_{id(tin)}",
-        vertices=vertices,
-        normal=normal,
-        faces=faces,  # NEU: Face-Array für korrektes TIN-Rendering
-    )
-
-    return surface
+    return surfaces
 
 
 def _extract_surfaces_from_polygon(polygon) -> List[WallSurface]:

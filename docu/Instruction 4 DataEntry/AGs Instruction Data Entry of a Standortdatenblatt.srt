@@ -1,0 +1,520 @@
+1
+00:00:00,000 --> 00:00:22,380
+Hello, I show you how to do the data entry from the data sheet, the given Standort Datenblatt.
+
+2
+00:00:22,380 --> 00:00:33,820
+You look for this page first for the page called Zusatzplatt 2.
+
+3
+00:00:33,820 --> 00:00:37,340
+It's also A2.
+
+4
+00:00:37,340 --> 00:00:41,780
+This is where you start.
+
+5
+00:00:41,780 --> 00:00:50,340
+And you open a template for the calculation.
+
+6
+00:00:50,340 --> 00:00:58,340
+And there you find the term Zusatzblatt 2, again here.
+
+7
+00:00:58,340 --> 00:01:05,700
+So now you enter the data, which is here in red.
+
+8
+00:01:05,700 --> 00:01:19,660
+you look up above, you start with the date of the sheet, which you cannot find here on
+
+9
+00:01:19,660 --> 00:01:33,740
+this page. So you have to start on the first page. I go back to the first page. This is
+
+10
+00:01:33,740 --> 00:01:47,860
+the first page here. And at the bottom you find the date. And you put it here.
+
+11
+00:01:47,860 --> 00:02:06,260
+And the revision number is 1.22 and the address of the antenna, which you find usually on
+
+12
+00:02:06,260 --> 00:02:11,260
+page three at the top, yes, the address.
+
+13
+00:02:11,260 --> 00:02:40,780
+And yeah, that's not right, you don't have to change this, it's the newest revision of
+
+14
+00:02:40,780 --> 00:03:05,980
+this template. So next data in red is Höhenquote. This was on page A2. Here we are. Höhenquote.
+
+15
+00:03:10,780 --> 00:03:36,380
+1099, 1099 dot, nothing more here.
+
+16
+00:03:36,380 --> 00:03:48,140
+Now the frequency. Frequency is here. At least you check that you enter the right values.
+
+17
+00:03:48,140 --> 00:04:11,040
+it's has to be changed 1800 so these depend on that so but you can overwrite
+
+18
+00:04:11,040 --> 00:04:24,600
+this so now there are only six not more you sometimes number seven is on the
+
+19
+00:04:24,600 --> 00:04:32,720
+next page or down next table not in this case in this case you only have six
+
+20
+00:04:32,720 --> 00:04:43,400
+columns and in the template you have much more. I had 18 columns so you just
+
+21
+00:04:43,400 --> 00:04:50,400
+delete the unneeded columns.
+
+22
+00:05:02,400 --> 00:05:06,400
+Delete the columns.
+
+23
+00:05:06,400 --> 00:05:21,720
+So that was the frequency. Now the company who creates it. Sometimes you have a different
+
+24
+00:05:21,720 --> 00:05:33,040
+name in different columns. Not in this case. It's all the same. Swisscom. Next line is
+
+25
+00:05:33,040 --> 00:05:51,240
+the antenna type, so you just put the antenna type into your clipboard and enter it here.
+
+26
+00:05:51,240 --> 00:05:57,520
+By automatic, this is copied to the other columns, but you have to check because sometimes
+
+27
+00:05:57,520 --> 00:06:01,040
+Sometimes it is different.
+
+28
+00:06:01,040 --> 00:06:08,000
+The difference at the end of the name is of no importance.
+
+29
+00:06:08,000 --> 00:06:19,460
+Best is even to delete it, because this end is the same.
+
+30
+00:06:19,460 --> 00:06:23,680
+It indicates just the frequency.
+
+31
+00:06:23,680 --> 00:06:41,320
+You see it here 7, 8, 900, 700 to 900 is here and here it is 18, 21, 26, 36 is this frequency.
+
+32
+00:06:41,320 --> 00:07:05,440
+So just delete the rest, and this is not an O, it is a zero, and that is not an L, it
+
+33
+00:07:05,440 --> 00:07:21,280
+is the one, so that would be the correct type. Next, adaptiver Betrieb is no no no no, always,
+
+34
+00:07:21,280 --> 00:07:34,880
+and subarrays it's always zero or none. Now we have Höhe der Antenne that is
+
+35
+00:07:34,880 --> 00:07:59,080
+different. So you take this for the first. And this for the second. And this again.
+
+36
+00:07:59,080 --> 00:08:20,440
+And now the power, Sendeleistung, just add this.
+
+37
+00:08:20,440 --> 00:08:49,600
+And the values for the direction azimuth is 60.
+
+38
+00:08:49,600 --> 00:09:00,800
+And this repeats, usually.
+
+39
+00:09:00,800 --> 00:09:30,040
+So horizontal 0, 9, 6, 0, 9, 6, and the other one is minus 2.
+
+40
+00:09:30,040 --> 00:09:56,200
+minus 2, minus 2, minus, minus 12, minus 7, minus 12, minus 12, and that is a calculated
+
+41
+00:09:56,200 --> 00:10:07,480
+line we keep it as it is calculated and that's all on this sheet so you scroll
+
+42
+00:10:07,480 --> 00:10:23,800
+down to the next one and here you scroll down to number of Omen number one that
+
+43
+00:10:23,800 --> 00:10:38,040
+is this the number in situation plan is 1 so perhaps 0 1 and now we have to save
+
+44
+00:10:38,040 --> 00:10:48,200
+the file the table to the name we just found
+
+45
+00:10:48,200 --> 00:10:52,760
+Omen 01
+
+46
+00:11:05,600 --> 00:11:17,400
+Adresse und Beschreibung. Beschreibung der Adresse. Mast, Fuß. That's what you put here.
+
+47
+00:11:18,200 --> 00:11:38,600
+And here Nutzung, this field is here. Nutzung after the double dot. Durch Zugang.
+
+48
+00:11:48,200 --> 00:12:16,400
+This is the next value we need, that's Höhe über Boden, Höhe über Boden, 1.5, 1.5.
+
+49
+00:12:16,400 --> 00:12:32,120
+and here we have deleted one entry field that is the next one here over here in
+
+50
+00:12:32,120 --> 00:12:46,640
+0, also 150.
+
+51
+00:12:46,640 --> 00:12:57,480
+This was red before, but we deleted it when we deleted the columns, but it doesn't care
+
+52
+00:12:57,480 --> 00:13:05,280
+whether it's red or not it's just for your orientation while enter the data so
+
+53
+00:13:05,280 --> 00:13:13,320
+now the next values from the table and the top of this table repeats the
+
+54
+00:13:13,320 --> 00:13:21,960
+format table so you don't have to put this in again but we continue with
+
+55
+00:13:21,960 --> 00:13:33,440
+horizontal distance or your central distance it's zero zero keep this
+
+56
+00:13:35,480 --> 00:13:45,200
+whoo on the sheets vision antenna and oka who notice sheet here you put these
+
+57
+00:13:45,200 --> 00:14:13,560
+is 8.20, 11, 8.20, 8.20, 11, and 8.20.
+
+58
+00:14:13,560 --> 00:14:18,560
+So, in fact, this is our entry fields.
+
+59
+00:14:22,520 --> 00:14:26,240
+Should not be gray and should be red.
+
+60
+00:14:27,160 --> 00:14:30,240
+That is a mistake in the template.
+
+61
+00:14:30,240 --> 00:14:32,820
+I have to correct this for the next revision.
+
+62
+00:14:34,160 --> 00:14:37,120
+But this is the line which is calculated
+
+63
+00:14:37,120 --> 00:14:39,920
+and it is correctly calculated.
+
+64
+00:14:39,920 --> 00:14:41,560
+I have the same values.
+
+65
+00:14:41,560 --> 00:14:44,560
+And now the next.
+
+66
+00:14:52,560 --> 00:14:54,560
+Azimuth.
+
+67
+00:14:55,560 --> 00:14:57,560
+Azimuth.
+
+68
+00:14:57,560 --> 00:15:20,400
+We have to write in this, that is 180.
+
+69
+00:15:20,400 --> 00:15:25,400
+All fields, copy this across the line.
+
+70
+00:15:28,920 --> 00:15:29,960
+Elevation.
+
+71
+00:15:32,760 --> 00:15:37,400
+This is taken from above, so don't change anything there.
+
+72
+00:15:38,460 --> 00:15:39,380
+It's gray.
+
+73
+00:15:44,800 --> 00:15:48,660
+Critical horizontal senderichtung.
+
+74
+00:15:48,660 --> 00:16:15,660
+Critical horizontal senderichtung, 60, that's correct, vertical, star 2, plus 7, minus 7,
+
+75
+00:16:15,660 --> 00:16:30,020
+Minus 12, 2, and minus 17.
+
+76
+00:16:30,020 --> 00:16:41,620
+The next two you just check, usually it is correct, yes, and here too, it's the same,
+
+77
+00:16:41,620 --> 00:16:50,140
+dis-calculated values. So next red fields to be entered are these Richtungsabschwächung,
+
+78
+00:16:50,140 --> 00:17:12,340
+25.9, 11.3, 5.3, 25, 12.4, 2, 4.
+
+79
+00:17:20,140 --> 00:17:47,460
+Oops.
+
+80
+00:17:47,460 --> 00:17:52,460
+Next two are calculated.
+
+81
+00:17:52,460 --> 00:18:03,420
+Next red one is not given here in this case, but we will see it in the next example.
+
+82
+00:18:03,420 --> 00:18:13,880
+So keep this and look for the final value and they calculated 13.25 and we calculated
+
+83
+00:18:13,880 --> 00:18:38,400
+13.15. I have an idea how this comes. There is somewhere a rounding here.
+
+84
+00:18:38,400 --> 00:18:50,400
+I don't care about the difference.
+
+85
+00:18:50,400 --> 00:18:57,280
+It's about 1% difference, so if it is 1% difference, then don't care about this.
+
+86
+00:18:57,280 --> 00:18:59,680
+That's correct.
+
+87
+00:18:59,680 --> 00:19:04,320
+We did it correctly.
+
+88
+00:19:04,320 --> 00:19:17,160
+So you save this again, save, and scroll down to the next page.
+
+89
+00:19:17,160 --> 00:19:21,140
+Next page is Omen number 2.
+
+90
+00:19:21,140 --> 00:19:38,380
+So for this, we save this under a new name, 02.
+
+91
+00:19:38,380 --> 00:19:41,060
+And the top is the same.
+
+92
+00:19:41,060 --> 00:19:48,300
+We start here with 02.
+
+93
+00:19:48,300 --> 00:20:13,500
+And now the address of this point, enter the address, and the purpose of it, wunnen.
+
+94
+00:20:13,500 --> 00:20:41,500
+And the other value, value, value, value is nine, nine, nine, nine, nine, nine, nine,
+
+95
+00:20:41,500 --> 00:20:44,860
+The value is 9.2.
+
+96
+00:20:53,140 --> 00:20:56,740
+Go down, this is repeated.
+
+97
+00:20:56,740 --> 00:21:01,620
+And now we are, we look for horizontal
+
+98
+00:21:01,620 --> 00:21:04,100
+upstand, horizontal upstand.
+
+99
+00:21:05,900 --> 00:21:10,740
+45.3 through the whole row.
+
+100
+00:21:11,500 --> 00:21:30,620
+okay 5.3 next to is calculated no this is not calculated has to be entered point
+
+101
+00:21:30,620 --> 00:21:51,080
+point five, three three, point five, point five, three three, point five, yes and this
+
+102
+00:21:51,080 --> 00:22:02,920
+This should be calculated identical, just check.
+
+103
+00:22:02,920 --> 00:22:30,040
+And the next row, as you would, 244, 244 across the row.
+
+104
+00:22:30,040 --> 00:22:52,480
+it's the same critical horizontal critical horizontal critical horizontal 60 it's the same
+
+105
+00:22:52,480 --> 00:23:20,940
+and minus four minus yeah minus two plus four minus one minus two minus one minus one
+
+106
+00:23:22,480 --> 00:23:48,200
+Here is the difference, but it's not red, so you don't enter it, but here.
+
+107
+00:23:48,200 --> 00:24:15,200
+24.8, 4.9, 7.8, 26.5, 4.4, 10.2
+
+108
+00:24:18,200 --> 00:24:39,280
+Next line, 0.1, 0.4, 0, 0, 0.3, 0.
+
+109
+00:24:39,280 --> 00:24:49,880
+is calculated and here you find Bauweise, Glass, Glass, zero. It's the only two you
+
+110
+00:24:49,880 --> 00:25:02,400
+have to enter, the rest is identical. And to check whether you are right, you look
+
+111
+00:25:02,400 --> 00:25:16,200
+Look at these values, this row, and that should be identical to this row.
+
+112
+00:25:16,200 --> 00:25:31,760
+There is a small difference, but it's about 1%, so don't care, similar here, but perhaps
+
+113
+00:25:31,760 --> 00:25:40,720
+you could find. The reason if you go up in the values which are different,
+
+114
+00:25:40,720 --> 00:25:53,320
+perhaps you could mark this as different and go up and find what might be the
+
+115
+00:25:53,320 --> 00:25:58,320
+Because of the difference, it's somewhere in these data.
+
+116
+00:26:00,320 --> 00:26:01,320
+It's this.
+
+117
+00:26:02,320 --> 00:26:05,320
+This value. Let's check.
+
+118
+00:26:23,320 --> 00:26:41,720
+did not help much but okay yeah and here is also as a result big difference but
+
+119
+00:26:41,720 --> 00:26:49,920
+it's just one percent so don't care about this otherwise you you look which
+
+120
+00:26:49,920 --> 00:27:01,560
+column is much different this compare this with this where the difference is
+
+121
+00:27:01,560 --> 00:27:11,360
+and then you find the values which are wrong which are these two columns and
+
+122
+00:27:11,360 --> 00:27:19,280
+then you go back and look which what values might have been entered wrongly
+
+123
+00:27:19,280 --> 00:27:38,320
+by you. Yeah, that's it. Now you'll save this again under the name 02 and now you continue
+
+124
+00:27:38,320 --> 00:27:55,240
+up to the next one three and save under the new name three and continue as
+
+125
+00:27:55,240 --> 00:27:56,240
+as before.
+
+126
+00:28:06,240 --> 00:28:08,760
+Put in three here, zero, three.
+
+127
+00:28:14,360 --> 00:28:19,480
+Brunnistraße, that is third floor.
+
+128
+00:28:19,480 --> 00:28:35,600
+It's also wohnen here and the horizontal distance is different.
+
+129
+00:28:35,600 --> 00:29:05,320
+Höhe über Boden, 10.33, 11.90, that's this, and so on, as shown before.
+
+130
+00:29:05,320 --> 00:29:15,320
+Thank you for your patience, enjoy and you can help me a lot with this work.
+
