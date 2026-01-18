@@ -499,17 +499,33 @@ Optionen:
             pattern_data=pattern_data_for_lobes,  # Pattern-Daten für Keulen
         )
 
-        # ParaView State File generieren (automatische Einstellungen)
+        # ParaView Setup Script generieren (automatische Voreinstellungen)
         try:
-            from .output.paraview_state import create_paraview_state, create_quick_guide_text
+            from .output.paraview_state import (
+                create_paraview_state,
+                create_paraview_setup_script,
+                create_quick_guide_text,
+            )
 
+            # Python-Setup-Script (mit allen Voreinstellungen)
+            create_paraview_setup_script(
+                vtk_file=output_dir / vtk_filename,
+                output_script=output_dir / "paraview_setup.py",
+                antenna_position=(
+                    antenna_system.base_position.e,
+                    antenna_system.base_position.n,
+                    antenna_system.base_position.h,
+                ),
+            )
+
+            # Legacy State File (einfacher)
             create_paraview_state(
                 vtk_file=output_dir / vtk_filename,
                 output_state=output_dir / "paraview_preset.pvsm",
                 color_field="E_field_Vm",
                 color_range=(0.0, 6.0),
                 glyph_scale=2.0,
-                use_glyph=False,  # Nicht im State, User macht manuell
+                use_glyph=False,
             )
 
             # Kurzanleitung als README
@@ -519,7 +535,7 @@ Optionen:
             print(f"  ParaView-Anleitung: {output_dir / 'PARAVIEW_ANLEITUNG.md'}")
 
         except Exception as e:
-            print(f"  HINWEIS: ParaView State konnte nicht erstellt werden: {e}")
+            print(f"  HINWEIS: ParaView State/Setup konnte nicht erstellt werden: {e}")
 
     except Exception as e:
         print(f"  WARNUNG: VTK-Export fehlgeschlagen: {e}")

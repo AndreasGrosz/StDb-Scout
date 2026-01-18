@@ -1614,9 +1614,10 @@ def export_to_vtk(
     # Gebäude als PolyData - ORIGINAL CityGML Geometrie
     # Zeigt echte Dachformen, aber fragmentiert
     if buildings:
+        print(f"  → Exportiere {len(buildings)} Gebäude...")
         building_meshes = []
 
-        for building in buildings:
+        for building_idx, building in enumerate(buildings):
             # Wände
             for wall in building.wall_surfaces:
                 if len(wall.vertices) < 3:
@@ -1635,7 +1636,8 @@ def export_to_vtk(
                         for i in range(1, n_points - 1):
                             faces.extend([3, 0, i, i + 1])
 
-                    if faces:
+                    # WICHTIG: Bei numpy array nicht "if faces:" sondern len() prüfen!
+                    if len(faces) > 0:
                         # Konvertiere faces zu Liste falls numpy array
                         if hasattr(faces, 'tolist'):
                             faces_list = faces.tolist()
@@ -1645,7 +1647,9 @@ def export_to_vtk(
                         mesh = pv.PolyData(points_wall, faces=faces_list)
                         mesh["Type"] = np.full(mesh.n_cells, 0)  # 0 = Wall
                         building_meshes.append(mesh)
-                except:
+                except Exception as e:
+                    if building_idx < 3:  # Nur erste 3 Fehler zeigen
+                        print(f"    WARNUNG: Wall-Mesh-Fehler bei Building {building_idx}: {e}")
                     continue
 
             # Dächer
@@ -1666,18 +1670,28 @@ def export_to_vtk(
                         for i in range(1, n_points - 1):
                             faces.extend([3, 0, i, i + 1])
 
-                    if faces:
+                    # WICHTIG: Bei numpy array nicht "if faces:" sondern len() prüfen!
+                    if len(faces) > 0:
                         mesh = pv.PolyData(points_roof, faces=faces)
                         mesh["Type"] = np.full(mesh.n_cells, 1)  # 1 = Roof
                         building_meshes.append(mesh)
-                except:
+                except Exception as e:
+                    if building_idx < 3:
+                        print(f"    WARNUNG: Roof-Mesh-Fehler bei Building {building_idx}: {e}")
                     continue
 
         if building_meshes:
-            combined_buildings = building_meshes[0]
-            for mesh in building_meshes[1:]:
-                combined_buildings = combined_buildings.merge(mesh)
-            multiblock["Buildings"] = combined_buildings
+            print(f"  → {len(building_meshes)} Building-Meshes erstellt, merge...")
+            try:
+                combined_buildings = building_meshes[0]
+                for mesh in building_meshes[1:]:
+                    combined_buildings = combined_buildings.merge(mesh)
+                multiblock["Buildings"] = combined_buildings
+                print(f"  → Buildings exportiert ({combined_buildings.n_points} Punkte, {combined_buildings.n_cells} Zellen)")
+            except Exception as e:
+                print(f"  FEHLER beim Merge von Buildings: {e}")
+        else:
+            print(f"  WARNUNG: Keine Building-Meshes erstellt!")
 
     # 3D-Antennendiagramm-Keulen (optional)
     if antenna_system and enable_antenna_lobes and pattern_data:

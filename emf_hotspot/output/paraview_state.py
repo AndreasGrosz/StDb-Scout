@@ -146,6 +146,57 @@ def _glyph_filter_xml(scale: float) -> str:
     """
 
 
+def create_paraview_setup_script(
+    vtk_file: Path,
+    output_script: Path,
+    antenna_position: tuple = None,
+) -> None:
+    """
+    Erstellt ein Python-Setup-Script für ParaView mit allen Voreinstellungen.
+
+    Args:
+        vtk_file: Pfad zur VTK-Datei (.vtm)
+        output_script: Pfad für das Python-Script (.py)
+        antenna_position: (E, N, H) für Kamera-Position
+    """
+    from pathlib import Path
+
+    # Template laden
+    template_path = Path(__file__).parent / "paraview_setup_template.py"
+    with open(template_path, 'r', encoding='utf-8') as f:
+        template = f.read()
+
+    # Kamera-Position berechnen
+    if antenna_position:
+        camera_x = antenna_position[0]
+        camera_y = antenna_position[1] - 200  # 200m südlich
+        camera_z = antenna_position[2] + 150  # 150m über Antenne
+        focal_x = antenna_position[0]
+        focal_y = antenna_position[1]
+        focal_z = antenna_position[2]
+    else:
+        camera_x, camera_y, camera_z = 0, 0, 500
+        focal_x, focal_y, focal_z = 0, 0, 0
+
+    # Platzhalter ersetzen
+    script = template.format(
+        vtk_file=vtk_file.absolute(),
+        camera_x=camera_x,
+        camera_y=camera_y,
+        camera_z=camera_z,
+        focal_x=focal_x,
+        focal_y=focal_y,
+        focal_z=focal_z,
+    )
+
+    # Script schreiben
+    with open(output_script, 'w', encoding='utf-8') as f:
+        f.write(script)
+
+    print(f"  ParaView Setup Script erstellt: {output_script}")
+    print(f"  → In ParaView: Tools → Python Shell → Run Script → {output_script.name}")
+
+
 def create_quick_guide_text(vtk_file: Path) -> str:
     """
     Erstellt eine Kurzanleitung für ParaView.
